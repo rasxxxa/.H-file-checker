@@ -156,53 +156,66 @@ bool IsClass(const std::string& line)
 }
 
 
-bool ParseVariable(std::string& line)
+std::vector<std::string> ParseVariable(const std::string& line)
 {
     std::string variable;
     if (!line.contains(";"))
-        return false;
+        return std::vector<std::string>();
+
+    std::vector<std::string> variables;
 
     auto pos = line.find(";") - 1;
     int posLeft = 0;
     int posRight = -1;
-    while (pos >= 0)
+    bool usable = true;
+
+    do
     {
-        if (line[pos] == ']')
+        while (pos >= 0)
         {
-            while (pos >= 0 && line[pos] != '[')
+            if (line[pos] == ']')
+            {
+                while (pos >= 0 && line[pos] != '[')
+                    pos--;
                 pos--;
-            pos--;
+            }
+            else if (line[pos] == '}')
+            {
+                while (pos >= 0 && line[pos] != '{')
+                    pos--;
+                pos--;
+            }
+            else
+            {
+                posRight = pos;
+                break;
+            }
         }
-        else if (line[pos] == '}')
+
+        if (posRight == -1)
         {
-            while (pos >= 0 && line[pos] != '{')
-                pos--;
-            pos--;
+            return std::vector<std::string>();
         }
+
+        auto IsAcceptableSign = [](char a)
+        {
+            return std::isalpha(a) || std::isdigit(a) || a == '_';
+        };
+
+        while (pos >= 0 && IsAcceptableSign(line[pos]))
+            pos--;
+
+        variables.push_back(line.substr(pos + 1, posRight - pos));
+        std::string restOfLine = line.substr(0, pos);
+
+        if (restOfLine.back() - 1 == ',' || restOfLine.back() - 2 == ',' || restOfLine.back() == ',')
+            pos = restOfLine.find_last_of(',') - 1;
         else
-        {
-            posRight = pos;
-            break;
-        }
-    }
+            usable = false;
 
-    if (posRight == -1)
-    {
-        return false;
-    }
+    } while (usable);
 
-    auto IsAcceptableSign = [](char a)
-    {
-        return std::isalpha(a) || std::isdigit(a) || a == '_';
-    };
-
-    while (pos>= 0 && IsAcceptableSign(line[pos]))
-        pos--;
-
-    line = line.substr(pos + 1, posRight - pos);
- 
-
-    return true;
+    return variables;
 }
 
 void RemoveEnums(std::vector < std::string>& lines)
@@ -266,9 +279,11 @@ std::set<std::string> GetUniqueVariables(std::vector<std::string>& lines)
     for (const auto& val : linesWithoutComments)
     {
         std::string copy = val;
-        if (ParseVariable(copy))
+        auto vars = ParseVariable(copy);
+        if (vars.size())
         {
-            unique_variables.insert(copy);
+            for (auto valS : vars)
+                unique_variables.insert(valS);
         }
     }
 
@@ -356,6 +371,7 @@ int main(int argc, const char** argv)
 
         for (const auto& val : toCheck)
         {
+            std::cout << std::endl << std::endl << std::endl;
             std::cout << "------FILE------" << std::endl;
             std::cout << val.hFile << std::endl << std::endl << std::endl;
 
@@ -393,7 +409,6 @@ int main(int argc, const char** argv)
             std::cout << "Variable " << val.first << " : " << val.second << " times!" << std::endl;
         }
     }
-
 
 
     return 0;
