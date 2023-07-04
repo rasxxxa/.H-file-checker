@@ -1,8 +1,0 @@
-Package: atlmfc
-Version: 0
-Port-Version: 2
-Architecture: x86-windows
-Multi-Arch: same
-Abi: c3456a8c0c99d35ec996de3cf90308cc384e796a4532542da958c4fed1d93ead
-Description: a stub package that ensures VS has ATL/MFC installed.
-Status: install ok installed

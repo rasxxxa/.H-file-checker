@@ -250,6 +250,26 @@ void RemoveEnums(std::vector < std::string>& lines)
     lines = std::vector<std::string>(withoutEnums);
 }
 
+void RemoveNamespaces(std::vector < std::string>& lines)
+{
+    size_t pos = 0;
+    std::vector<std::string> withoutEnums;
+    while (pos < lines.size())
+    {
+        if (!lines[pos].contains("namespace"))
+        {
+            withoutEnums.push_back(lines[pos]);
+        }
+        else
+        {
+            while (pos < lines.size() && !lines[pos].contains("};"))
+                pos++;
+        }
+        pos++;
+    }
+    lines = std::vector<std::string>(withoutEnums);
+}
+
 
 void RemoveMethods(std::vector<std::string>& lines, std::vector<std::string>& returnMethods)
 {
@@ -314,7 +334,7 @@ std::set<std::string> GetUniqueVariables(std::vector<std::string>& lines)
     structs = FindAllStructs(linesWithoutComments);
     std::vector<std::string> methodNames;
     RemoveMethods(linesWithoutComments, methodNames);
-    
+    RemoveNamespaces(linesWithoutComments);
 
     //for (auto val : linesWithoutComments)
     //{
@@ -379,7 +399,7 @@ std::unordered_map<std::string, int> GetOccurenceOfVariables(const std::set<std:
 int main(int argc, const char** argv) 
 {
 #ifdef _DEBUG
-    std::string filesPath = "D:\\magicnhd\\BiCa53G";
+    std::string filesPath = "D:\\magicnhd\\Reel5CO";
     std::string s = "";
     if (argc > 1)
         s = argv[1];
@@ -409,7 +429,8 @@ int main(int argc, const char** argv)
                     f.hFile = fileName;
                     f.cppFile = fileName.substr(0, fileName.size() - 2);
                     f.cppFile.append(".cpp");
-                    toCheck.push_back(f);
+                    if (std::filesystem::exists(f.cppFile))
+                        toCheck.push_back(f);
                 }
             }
         }
