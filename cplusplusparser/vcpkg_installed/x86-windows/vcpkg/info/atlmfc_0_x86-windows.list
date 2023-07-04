@@ -1,0 +1,5 @@
+x86-windows/
+x86-windows/share/
+x86-windows/share/atlmfc/
+x86-windows/share/atlmfc/vcpkg.spdx.json
+x86-windows/share/atlmfc/vcpkg_abi_info.txt

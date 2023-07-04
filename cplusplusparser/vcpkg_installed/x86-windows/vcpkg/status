@@ -1,0 +1,203 @@
+Package: vcpkg-cmake
+Version: 2023-05-04
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 5ae636c85a575b6b543b69f9dc53417837bd0c37958162774e5e7618a7c067df
+Status: install ok installed
+
+Package: zlib
+Version: 1.2.13
+Depends: vcpkg-cmake:x64-windows
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 0e67b692f74b8ca6ee5b739c08d0cca6bec6692aa1513744fa03b5de0be1bb57
+Description: A compression library
+Status: install ok installed
+
+Package: vcpkg-cmake-config
+Version: 2022-02-06
+Port-Version: 1
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b3e294d7c2bd4d95f5a0d38131ccd1eb9db48142d7dab934359bf43b2b97526a
+Status: install ok installed
+
+Package: liblzma
+Version: 5.4.3
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows
+Multi-Arch: same
+Abi: d0ea1e9c5de586d9f3b28705e1649507aea6e24c343776d3df38f13b81e72440
+Description: Compression library with an API similar to that of zlib.
+Status: install ok installed
+
+Package: libjpeg-turbo
+Version: 2.1.5.1
+Port-Version: 2
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 9a55c27c55c5e21ad5f731249fef6297e9de37688f2de6db7f6114104bebdff2
+Description: libjpeg-turbo is a JPEG image codec that uses SIMD instructions (MMX, SSE2, NEON, AltiVec) to accelerate baseline JPEG compression and decompression on x86, x86-64, ARM, and PowerPC systems.
+Status: install ok installed
+
+Package: tiff
+Version: 4.5.1
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 04fb361a2614c24b2c194d8b96dafbaf8e97066e0b5aca745f85a34bcdfeff54
+Description: A library that supports the manipulation of TIFF image files
+Default-Features: jpeg, lzma, zip
+Status: install ok installed
+
+Package: tiff
+Feature: jpeg
+Depends: libjpeg-turbo
+Architecture: x86-windows
+Multi-Arch: same
+Description: Support JPEG compression in TIFF image files
+Status: install ok installed
+
+Package: tiff
+Feature: lzma
+Depends: liblzma
+Architecture: x86-windows
+Multi-Arch: same
+Description: Support LZMA compression in TIFF image files
+Status: install ok installed
+
+Package: tiff
+Feature: zip
+Depends: zlib
+Architecture: x86-windows
+Multi-Arch: same
+Description: Support ZIP/deflate compression in TIFF image files
+Status: install ok installed
+
+Package: bzip2
+Version: 1.0.8
+Port-Version: 4
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 028ab93543d76e1b24c0171c6c12de1eaf57748903bd9b36b4ce200fdddf32c0
+Description: bzip2 is a freely available, patent free, high-quality data compressor. It typically compresses files to within 10% to 15% of the best available techniques (the PPM family of statistical compressors), whilst being around twice as fast at compression and six times faster at decompression.
+Default-Features: tool
+Status: install ok installed
+
+Package: bzip2
+Feature: tool
+Architecture: x86-windows
+Multi-Arch: same
+Description: Builds bzip2 executable
+Status: install ok installed
+
+Package: pcre2
+Version: 10.42
+Depends: bzip2, vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows, zlib
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 4b27f26cc992d743e29ebb56d005b9799a5d1f706ae6461745c5aedc1c99dfff
+Description: Regular Expression pattern matching using the same syntax and semantics as Perl 5.
+Default-Features: platform-default-features
+Status: install ok installed
+
+Package: pcre2
+Feature: jit
+Architecture: x86-windows
+Multi-Arch: same
+Description: Build JIT support
+Status: install ok installed
+
+Package: pcre2
+Feature: platform-default-features
+Architecture: x86-windows
+Multi-Arch: same
+Description: Enable default features
+Status: install ok installed
+
+Package: egl-registry
+Version: 2022-09-20
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 7ba544522890ebf81d77642646f0e657a6cd238b3090b507c71e782483549780
+Description: the EGL API and Extension Registry
+Status: install ok installed
+
+Package: opengl-registry
+Version: 2022-09-29
+Port-Version: 1
+Depends: egl-registry
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 620abc58e8948754c73ca63d31e86699b7d36725dc12a95af8a016fa92d2af1e
+Description: the API and Extension registries for the OpenGL family APIs
+Status: install ok installed
+
+Package: opengl
+Version: 2022-12-04
+Port-Version: 3
+Depends: opengl-registry
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 0cbafaa54226f2df4266a4cf7562a5a0f53d5b8d30ad2334964c141416987870
+Description: Open Graphics Library (OpenGL)[3][4][5] is a cross-language, cross-platform application programming interface (API) for rendering 2D and 3D vector graphics.
+Status: install ok installed
+
+Package: nanosvg
+Version: 2022-12-04
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows
+Multi-Arch: same
+Abi: be131878b251522c4389c93f7c37c65dec9eab3b81f67bfff7367decbd7c774e
+Description: NanoSVG is a simple stupid single-header-file SVG parse. The output of the parser is a list of cubic bezier shapes..
+Status: install ok installed
+
+Package: libpng
+Version: 1.6.39
+Port-Version: 1
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows, zlib
+Architecture: x86-windows
+Multi-Arch: same
+Abi: a4565be50838c4acf192bbab87d9e6cf917df769b1f1eb325bf33f3235c98f4f
+Description: libpng is a library implementing an interface for reading and writing PNG (Portable Network Graphics) format files
+Status: install ok installed
+
+Package: expat
+Version: 2.5.0
+Port-Version: 3
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 112d5ea0b5984f2f4eba93ee4be64c9f696580ef94f96fd3aaca54e6c592c789
+Description: XML parser library written in C
+Status: install ok installed
+
+Package: wxwidgets
+Version: 3.2.2.1
+Port-Version: 3
+Depends: expat, libjpeg-turbo, libpng, nanosvg, opengl, pcre2, tiff, vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows, zlib
+Architecture: x86-windows
+Multi-Arch: same
+Abi: efc8ef368c0824d7ad0d935bc55cab62585f06d826a8a57414a43649f9ffd804
+Description: Widget toolkit and tools library for creating graphical user interfaces (GUIs) for cross-platform applications.
+    Set WXWIDGETS_USE_STL in a custom triplet to build with the wxUSE_STL build option.
+    Set WXWIDGETS_USE_STD_CONTAINERS in a custom triplet to build with the wxUSE_STD_CONTAINERS build option.
+Default-Features: debug-support, sound
+Status: install ok installed
+
+Package: wxwidgets
+Feature: debug-support
+Architecture: x86-windows
+Multi-Arch: same
+Description: Enable wxWidgets debugging support hooks even for release builds (wxDEBUG_LEVEL 1)
+Status: install ok installed
+
+Package: wxwidgets
+Feature: sound
+Architecture: x86-windows
+Multi-Arch: same
+Description: Build wxSound support
+Status: install ok installed
+

@@ -1,0 +1,6 @@
+Package: wxwidgets
+Feature: sound
+Architecture: x86-windows
+Multi-Arch: same
+Description: Build wxSound support
+Status: purge ok not-installed

@@ -1,0 +1,6 @@
+Package: pcre2
+Feature: jit
+Architecture: x86-windows
+Multi-Arch: same
+Description: Build JIT support
+Status: purge ok half-installed
