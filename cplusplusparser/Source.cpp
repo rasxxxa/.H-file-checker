@@ -251,7 +251,7 @@ void RemoveEnums(std::vector < std::string>& lines)
 }
 
 
-void RemoveMethods(std::vector<std::string>& lines)
+void RemoveMethods(std::vector<std::string>& lines, std::vector<std::string>& returnMethods)
 {
     size_t pos = 0;
     std::vector<std::string> withoudMethods;
@@ -263,7 +263,16 @@ void RemoveMethods(std::vector<std::string>& lines)
         }
         else
         {
-            while (pos < lines.size() && !lines[pos].contains(");"))
+            auto posOfParentesis = lines[pos].find("(") -1;
+            std::string Method = "";
+            while (posOfParentesis >= 0 && lines[pos][posOfParentesis] != ' ')
+            {
+                Method.push_back(lines[pos][posOfParentesis]);
+                posOfParentesis--;
+            }
+            std::reverse(Method.begin(), Method.end());
+            returnMethods.push_back(Method);
+            while (pos < lines.size() && (!lines[pos].contains(")")))
                 pos++;
         }
         pos++;
@@ -303,7 +312,8 @@ std::set<std::string> GetUniqueVariables(std::vector<std::string>& lines)
             linesWithoutComments.push_back(formatted);
     }
     structs = FindAllStructs(linesWithoutComments);
-    RemoveMethods(linesWithoutComments);
+    std::vector<std::string> methodNames;
+    RemoveMethods(linesWithoutComments, methodNames);
     
 
     //for (auto val : linesWithoutComments)
@@ -451,8 +461,8 @@ int main(int argc, const char** argv)
     {
         std::string hFile, cppFile;
 #ifdef _DEBUG
-        hFile = "VGame.h";
-        cppFile = "VGame.cpp";
+        hFile = "VStatus.h";
+        cppFile = "VStatus.cpp";
 #else
         hFile = argv[1];
         cppFile = argv[2];
