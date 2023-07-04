@@ -6,6 +6,7 @@
 #include <stack>
 #include <regex>
 #include <unordered_map>
+#include <filesystem>
 
 std::vector<std::string> ReadFile(const std::string_view& filePath)
 {
@@ -58,9 +59,6 @@ bool IsCommentLine(const std::string& line, std::string& formatted)
         }
         return true;
     }
-
-
-
     return false;
 }
 
@@ -83,15 +81,9 @@ bool IsMethod(const std::string& line)
 
 bool IsPrivateProtectedOrPublic(const std::string& line)
 {
-    return line.contains("public:") || line.contains("private:") || line.contains("protected:") || line.contains("pragma");
+    return line.contains("public:") || line.contains("private:") || line.contains("protected:") || line.contains("#");
 }
 
-bool IsEnum(const std::string& line)
-{
-    if (line.contains("enum"))
-        return true;
-    return false;
-}
 
 std::set<std::string> FindAllStructs(std::vector<std::string>& lines)
 {
@@ -183,7 +175,7 @@ bool ParseVariable(std::string& line)
         }
         else if (line[pos] == '}')
         {
-            while (pos >= 0 && line[pos] != '[')
+            while (pos >= 0 && line[pos] != '{')
                 pos--;
             pos--;
         }
@@ -213,14 +205,34 @@ bool ParseVariable(std::string& line)
     return true;
 }
 
+void RemoveEnums(std::vector < std::string>& lines)
+{
+    size_t pos = 0;
+    std::vector<std::string> withoutEnums;
+    while (pos < lines.size())
+    {
+        if (!lines[pos].contains("enum"))
+        {
+            withoutEnums.push_back(lines[pos]);
+        }
+        else
+        {
+            while (pos < lines.size() && !lines[pos].contains("};"))
+                pos++;
+        }
+        pos++;
+    }
+    lines = std::vector<std::string>(withoutEnums);
+}
 
-std::set<std::string> GetUniqueVariables(const std::vector<std::string>& lines)
+std::set<std::string> GetUniqueVariables(std::vector<std::string>& lines)
 {
     std::set<std::string> unique_variables;
     std::set<std::string> methods;
     std::set<std::string> structs;
     std::vector<std::string> linesWithoutComments;
     // delete all comments 
+    RemoveEnums(lines);
     for (const auto& line : lines)
     {
         if (IsNewLineOrEmpty(line))
@@ -238,14 +250,6 @@ std::set<std::string> GetUniqueVariables(const std::vector<std::string>& lines)
         if (IsClass(line))
             continue;
 
-
-        if (IsEnum(line))
-        {
-            // Handle enums
-            continue;
-        }
-
-
         std::string formatted;
         if (!IsCommentLine(line, formatted))
         {
@@ -258,7 +262,7 @@ std::set<std::string> GetUniqueVariables(const std::vector<std::string>& lines)
 
 
     structs = FindAllStructs(linesWithoutComments);
-
+    
     for (const auto& val : linesWithoutComments)
     {
         std::string copy = val;
@@ -314,25 +318,82 @@ std::unordered_map<std::string, int> GetOccurenceOfVariables(const std::set<std:
 
 int main(int argc, const char** argv) 
 {
-    std::string hFile, cppFile;
 #ifdef _DEBUG
-    hFile = "DBingoCards.h";
-    cppFile = "DBingoCards.cpp";
+    std::string filesPath = "D:\\magicnhd\\BiCa53G";
+    std::string s = "";
+    if (argc > 1)
+        s = argv[1];
 #else
-    hFile = argv[1];
-    cppFile = argv[2];
+    std::string filesPath = ".";
+    std::string s = argv[1];
+#endif 
+    
+    if (s.contains("REC"))
+    {
+        struct Files
+        {
+            std::string hFile;
+            std::string cppFile;
+        };
+
+        std::vector<Files> toCheck;
+
+        for (auto path : std::filesystem::directory_iterator(filesPath.c_str()))
+        {
+            if (!std::filesystem::is_directory(path))
+            {
+                std::string fileName = path.path().string();
+                if (fileName.back() == 'h' && fileName[fileName.size() - 2] == '.')
+                {
+                    Files f;
+                    f.hFile = fileName;
+                    f.cppFile = fileName.substr(0, fileName.size() - 2);
+                    f.cppFile.append(".cpp");
+                    toCheck.push_back(f);
+                }
+            }
+        }
+
+        for (const auto& val : toCheck)
+        {
+            std::cout << "------FILE------" << std::endl;
+            std::cout << val.hFile << std::endl << std::endl << std::endl;
+
+            auto linesH = ReadFile(val.hFile);
+            auto linesCpp = ReadFile(val.cppFile);
+
+            auto values = GetUniqueVariables(linesH);
+            ClearCppFileFromComments(linesCpp);
+            auto occurence = GetOccurenceOfVariables(values, linesCpp);
+            for (const auto& val : occurence)
+            {
+                std::cout << "Variable " << val.first << " : " << val.second << " times!" << std::endl;
+            }
+        }
+    }
+    else
+    {
+        std::string hFile, cppFile;
+#ifdef _DEBUG
+        hFile = "DBingoCard.h";
+        cppFile = "DBingoCard.cpp";
+#else
+        hFile = argv[1];
+        cppFile = argv[2];
 #endif
 
-    auto linesH = ReadFile(hFile);
-    auto linesCpp = ReadFile(cppFile);
+        auto linesH = ReadFile(hFile);
+        auto linesCpp = ReadFile(cppFile);
 
-    auto values = GetUniqueVariables(linesH);
-    ClearCppFileFromComments(linesCpp);
-    auto occurence = GetOccurenceOfVariables(values, linesCpp);
-    for (const auto& val : occurence)
-    {
-        std::cout << "Variable " << val.first << " : " << val.second << " times!" << std::endl;
+        auto values = GetUniqueVariables(linesH);
+        ClearCppFileFromComments(linesCpp);
+        auto occurence = GetOccurenceOfVariables(values, linesCpp);
+        for (const auto& val : occurence)
+        {
+            std::cout << "Variable " << val.first << " : " << val.second << " times!" << std::endl;
+        }
     }
+
 
 
     return 0;
