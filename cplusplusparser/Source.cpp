@@ -70,15 +70,6 @@ bool IsNewLineOrEmpty(const std::string& line)
 }
 
 
-bool IsMethod(const std::string& line)
-{
-    if (line.contains("(") && line.contains(")"))
-        return true;
-
-    return false;
-}
-
-
 bool IsPrivateProtectedOrPublic(const std::string& line)
 {
     return line.contains("public:") || line.contains("private:") || line.contains("protected:") || line.contains("#");
@@ -96,10 +87,23 @@ std::set<std::string> FindAllStructs(std::vector<std::string>& lines)
         if (std::regex_search(lines[pos], pattern))
         {
             std::stack<char> parentesis;
+            bool nameFound = false;
             if (lines[pos].contains("{"))
             {
                 parentesis.push('{');
             }
+
+            auto posOfStruct = lines[pos].find("struct");
+            posOfStruct += 7;
+
+            std::string structName = "";
+            while (posOfStruct < lines[pos].size() && lines[pos][posOfStruct] != '{')
+            {
+                if (lines[pos][posOfStruct] != ' ')
+                    structName.push_back(lines[pos][posOfStruct]);
+                posOfStruct++;
+            }
+
 
             while (parentesis.empty() && pos + 1 != lines.size())
             {
@@ -120,16 +124,24 @@ std::set<std::string> FindAllStructs(std::vector<std::string>& lines)
                     parentesis.push('{');
                 }
             }
-            std::string copyLine = lines[pos];
-            auto it = std::remove_if(copyLine.begin(), copyLine.end(), [](char a) {
+            if (!structName.empty())
+            {
+                structs.insert(structName);
+            }
+            else
+            {
+                std::string copyLine = lines[pos];
+                auto it = std::remove_if(copyLine.begin(), copyLine.end(), [](char a) {
 
-                return a == ' ' || a == '}' || a == '{' || a == ';';
+                    return a == ' ' || a == '}' || a == '{' || a == ';';
 
-                });
+                    });
 
-            copyLine.erase(it, copyLine.end());
+                copyLine.erase(it, copyLine.end());
 
-            structs.insert(copyLine);
+                structs.insert(copyLine);
+            }
+
 
             
         }
@@ -238,6 +250,29 @@ void RemoveEnums(std::vector < std::string>& lines)
     lines = std::vector<std::string>(withoutEnums);
 }
 
+
+void RemoveMethods(std::vector<std::string>& lines)
+{
+    size_t pos = 0;
+    std::vector<std::string> withoudMethods;
+    while (pos < lines.size())
+    {
+        if (!lines[pos].contains("("))
+        {
+            withoudMethods.push_back(lines[pos]);
+        }
+        else
+        {
+            while (pos < lines.size() && !lines[pos].contains(");"))
+                pos++;
+        }
+        pos++;
+    }
+    lines = std::vector<std::string>(withoudMethods);
+};
+
+
+
 std::set<std::string> GetUniqueVariables(std::vector<std::string>& lines)
 {
     std::set<std::string> unique_variables;
@@ -246,6 +281,7 @@ std::set<std::string> GetUniqueVariables(std::vector<std::string>& lines)
     std::vector<std::string> linesWithoutComments;
     // delete all comments 
     RemoveEnums(lines);
+    
     for (const auto& line : lines)
     {
         if (IsNewLineOrEmpty(line))
@@ -253,12 +289,6 @@ std::set<std::string> GetUniqueVariables(std::vector<std::string>& lines)
 
         if (IsPrivateProtectedOrPublic(line))
             continue;
-
-        if (IsMethod(line))
-        {
-            methods.insert(line);
-            continue;
-        }
 
         if (IsClass(line))
             continue;
@@ -272,9 +302,14 @@ std::set<std::string> GetUniqueVariables(std::vector<std::string>& lines)
         if (!formatted.empty())
             linesWithoutComments.push_back(formatted);
     }
-
-
     structs = FindAllStructs(linesWithoutComments);
+    RemoveMethods(linesWithoutComments);
+    
+
+    for (auto val : linesWithoutComments)
+    {
+        std::cout << val << std::endl;
+    }
     
     for (const auto& val : linesWithoutComments)
     {
@@ -391,8 +426,8 @@ int main(int argc, const char** argv)
     {
         std::string hFile, cppFile;
 #ifdef _DEBUG
-        hFile = "DBingoCard.h";
-        cppFile = "DBingoCard.cpp";
+        hFile = "VGame.h";
+        cppFile = "VGame.cpp";
 #else
         hFile = argv[1];
         cppFile = argv[2];
