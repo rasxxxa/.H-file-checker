@@ -306,11 +306,11 @@ std::set<std::string> GetUniqueVariables(std::vector<std::string>& lines)
     RemoveMethods(linesWithoutComments);
     
 
-    for (auto val : linesWithoutComments)
-    {
-        std::cout << val << std::endl;
-    }
-    
+    //for (auto val : linesWithoutComments)
+    //{
+    //    std::cout << val << std::endl;
+    //}
+    //
     for (const auto& val : linesWithoutComments)
     {
         std::string copy = val;
@@ -416,10 +416,35 @@ int main(int argc, const char** argv)
             auto values = GetUniqueVariables(linesH);
             ClearCppFileFromComments(linesCpp);
             auto occurence = GetOccurenceOfVariables(values, linesCpp);
+
+            struct mapval
+            {
+                std::string s;
+                int occ;
+            };
+
+            std::vector<mapval> valuesM;
+
             for (const auto& val : occurence)
             {
-                std::cout << "Variable " << val.first << " : " << val.second << " times!" << std::endl;
+                mapval m;
+                m.s = val.first;
+                m.occ = val.second;
+                valuesM.push_back(m);
             }
+
+            std::sort(valuesM.begin(), valuesM.end(), [](const mapval& first, const mapval& second) {
+                
+                return first.occ < second.occ;
+                
+                });
+
+            for (const auto& mVal : valuesM)
+            {
+                std::cout << "Variable " << mVal.s << " - ocurence : " << mVal.occ << " times!" << std::endl;
+            }
+
+
         }
     }
     else
