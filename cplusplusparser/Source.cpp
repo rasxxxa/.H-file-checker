@@ -176,7 +176,7 @@ std::vector<std::string> ParseVariable(const std::string& line)
 
     std::vector<std::string> variables;
 
-    auto pos = line.find(";") - 1;
+    int pos = static_cast<int>(line.find(";") - 1);
     int posLeft = 0;
     int posRight = -1;
     bool usable = true;
@@ -395,6 +395,7 @@ std::unordered_map<std::string, int> GetOccurenceOfVariables(const std::set<std:
     return occurences;
 }
 
+#define WRITE_TO_FILE
 
 int main(int argc, const char** argv) 
 {
@@ -434,13 +435,19 @@ int main(int argc, const char** argv)
                 }
             }
         }
-
+        std::ofstream file("UnusedVariables.txt");
         for (const auto& val : toCheck)
         {
+            
+#ifdef WRITE_TO_FILE
+            file << std::endl << std::endl << std::endl;
+            file << "------FILE------" << std::endl;
+            file << val.hFile << std::endl << std::endl << std::endl;
+#else 
             std::cout << std::endl << std::endl << std::endl;
             std::cout << "------FILE------" << std::endl;
             std::cout << val.hFile << std::endl << std::endl << std::endl;
-
+#endif
             auto linesH = ReadFile(val.hFile);
             auto linesCpp = ReadFile(val.cppFile);
 
@@ -472,11 +479,17 @@ int main(int argc, const char** argv)
 
             for (const auto& mVal : valuesM)
             {
+#ifdef WRITE_TO_FILE
+                file << "Variable " << mVal.s << " - ocurence : " << mVal.occ << " times!" << std::endl;
+#else
                 std::cout << "Variable " << mVal.s << " - ocurence : " << mVal.occ << " times!" << std::endl;
+#endif
             }
 
 
         }
+        file.flush();
+        file.close();
     }
     else
     {
@@ -495,10 +508,17 @@ int main(int argc, const char** argv)
         auto values = GetUniqueVariables(linesH);
         ClearCppFileFromComments(linesCpp);
         auto occurence = GetOccurenceOfVariables(values, linesCpp);
+        std::ofstream file("UnusedVariables.txt");
         for (const auto& val : occurence)
         {
+#ifdef WRITE_TO_FILE
+            file << "Variable " << val.first << " : " << val.second << " times!" << std::endl;
+#else
             std::cout << "Variable " << val.first << " : " << val.second << " times!" << std::endl;
+#endif
         }
+        file.flush();
+        file.close();
     }
 
 
