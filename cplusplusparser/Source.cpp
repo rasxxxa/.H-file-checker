@@ -572,7 +572,7 @@ int main(int argc, const char** argv)
 
         std::vector<Files> toCheck;
 
-        for (auto path : std::filesystem::directory_iterator(filesPath.c_str()))
+        for (auto path : std::filesystem::recursive_directory_iterator(filesPath.c_str()))
         {
             if (!std::filesystem::is_directory(path))
             {
