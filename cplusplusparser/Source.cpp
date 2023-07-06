@@ -467,7 +467,7 @@ std::unordered_map<std::string, int> GetOccurenceOfVariables(const ClassParser& 
 }
 
 
-std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser, const std::vector<std::vector<std::string>>& files)
+std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser, const std::unordered_map<std::string, std::vector<std::string>>& files, const std::string& classForParser )
 {
     std::unordered_map<std::string, int> ocurences;
     struct MethodPossible
@@ -476,6 +476,7 @@ std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser
         std::vector<std::string> possible_names;
     };
     std::vector<MethodPossible> all_combination;
+    std::vector<MethodPossible> only_main_cpp;
 
     for (const auto& line : parser.public_methods)
     {
@@ -496,8 +497,16 @@ std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser
             fullName.append(line);
             method_possible.possible_names.push_back(fullName);
         }
+
+        MethodPossible mp;
+        mp.key_name = line;
+        mp.possible_names.push_back(line);
+        only_main_cpp.push_back(mp);
+
         if (!method_possible.possible_names.empty())
             all_combination.push_back(method_possible);
+
+
     }
 
     for (const auto& line : parser.static_methods)
@@ -529,16 +538,30 @@ std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser
     {
 	    for (const auto& file : files)
 	    {
-		    for (const auto& lineInFile : file)
+		    for (const auto& lineInFile : file.second)
 		    {
 			    for (const auto& combination : possible_combination.possible_names)
 			    {
-				   if (lineInFile.contains(combination))
-				   {
-                       ocurences[possible_combination.key_name]++;
-				   }
+                    if (lineInFile.contains(combination))
+                    {
+                        ocurences[possible_combination.key_name]++;
+                    }
 			    }
 		    }
+	    }
+    }
+
+    for (const auto& possible_name : only_main_cpp)
+    {
+	    for (const auto& line : files.at(classForParser))
+	    {
+            for (const auto& combination : possible_name.possible_names)
+            {
+                if (line.contains(combination))
+                {
+                    ocurences[possible_name.key_name]++;
+                }
+            }
 	    }
     }
 
@@ -637,9 +660,9 @@ int main(int argc, const char** argv)
             for (const auto& mVal : valuesM)
             {
 #ifdef WRITE_TO_FILE
-                file << "Variable " << mVal.s << " - ocurence : " << mVal.occ << " times!" << std::endl;
+                file << "Variable " << mVal.s << " - occurrence : " << mVal.occ << " times!" << std::endl;
 #else
-                std::cout << "Variable " << mVal.s << " - ocurence : " << mVal.occ << " times!" << std::endl;
+                std::cout << "Variable " << mVal.s << " - occurrence : " << mVal.occ << " times!" << std::endl;
 #endif
             }
 
@@ -648,13 +671,7 @@ int main(int argc, const char** argv)
 
         for (const auto& check_all_parsers : mapped_parsers)
         {
-            std::vector<std::vector<std::string>> all_files;
-            for (const auto& lines : allFiles)
-            {
-                all_files.push_back(lines.second);
-            }
-
-            auto usage = GetMethodOcurence(check_all_parsers.second, all_files);
+            auto usage = GetMethodOcurence(check_all_parsers.second, allFiles, check_all_parsers.first);
 
             struct mapvalS
             {
@@ -680,7 +697,7 @@ int main(int argc, const char** argv)
             file << std::endl << std::endl << std::endl << "Class : " << check_all_parsers.first << std::endl;
             for (const auto& methods : sortedMethods)
             {
-                file << "Method " << methods.s << " - ocurence : " << methods.occ<< " times!" << std::endl;
+                file << "Method " << methods.s << " - occurrence : " << methods.occ<< " times!" << std::endl;
             }
 
         }
