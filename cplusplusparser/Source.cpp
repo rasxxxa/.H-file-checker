@@ -446,6 +446,40 @@ void ClearCppFileFromComments(std::vector<std::string>& lines)
     lines = std::vector<std::string>(copy);
 }
 
+void CheckVariablesForUsage(const std::set<std::string>& variables,const std::vector<std::string>& source, std::ofstream& file)
+{
+
+  file << "------Variable Read/Write------" << std::endl;
+
+  for (const auto& val : variables)
+  {
+    file << val.c_str();
+    int numOfWrite = 0;
+    int numrOfRead = 0;
+    int numrOfFunctionCall = 0;
+    for (const auto& line : source)
+    {
+      if (line.contains(val))
+      {
+        auto varPos = line.find(val, 0);
+       
+        if (line.find("=", 0) > varPos)
+          numOfWrite++;
+
+        if(line.find("=", 0) < varPos || (line.find("(", 0) < varPos && line.find(")", varPos) > varPos) || line.find("return", 0) != std::string::npos || (line.find("[", 0) < varPos && line.find("]", varPos) > varPos))
+          numrOfRead++;
+
+        if (line.find("->", varPos) != std::string::npos || line.find(val + ".", varPos) != std::string::npos)
+          numrOfFunctionCall++;
+
+      }
+    }
+    file << " is write: "<< numOfWrite;
+    file << ", is read: " << numrOfRead;
+    file << ", is used as argument: " << numrOfFunctionCall << std::endl;
+  }
+}
+
 
 std::unordered_map<std::string, int> GetOccurenceOfVariables(const ClassParser& parser, const std::vector<std::string>& lines)
 {
@@ -630,6 +664,7 @@ int main(int argc, const char** argv)
 
             auto parser = GetUniqueVariables(linesH);
             ClearCppFileFromComments(linesCpp);
+            CheckVariablesForUsage(parser.unique_variables, linesCpp, file);
             allFiles[val.hFile] = (linesCpp);
             mapped_parsers[val.hFile] = parser;
             auto occurence = GetOccurenceOfVariables(parser, linesCpp);
