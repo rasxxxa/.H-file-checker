@@ -446,7 +446,7 @@ void ClearCppFileFromComments(std::vector<std::string>& lines)
     lines = std::vector<std::string>(copy);
 }
 
-void CheckVariablesForUsage(std::set<std::string> variables, std::vector<std::string> source, std::ofstream& file)
+void CheckVariablesForUsage(const std::set<std::string>& variables,const std::vector<std::string>& source, std::ofstream& file)
 {
 
   file << "------Variable Read/Write------" << std::endl;
