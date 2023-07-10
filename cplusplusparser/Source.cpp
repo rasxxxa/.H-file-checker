@@ -18,6 +18,14 @@ struct ClassParser
     std::string global_pointer;
 };
 
+
+struct VariableOccurrenceReadWrite
+{
+    size_t read_times;
+    size_t write_times;
+    size_t method_times;
+};
+
 enum class Visibility
 {
     Private,
@@ -446,14 +454,15 @@ void ClearCppFileFromComments(std::vector<std::string>& lines)
     lines = std::vector<std::string>(copy);
 }
 
-void CheckVariablesForUsage(const std::set<std::string>& variables,const std::vector<std::string>& source, std::ofstream& file)
+std::unordered_map<std::string, VariableOccurrenceReadWrite> CheckVariablesForUsage(const std::set<std::string>&variables, const std::vector<std::string>&source)
 {
-
-  file << "------Variable Read/Write------" << std::endl;
+    std::unordered_map<std::string, VariableOccurrenceReadWrite> variableOccurrenceReadWrite;
+  //file << "------Variable Read/Write------" << std::endl;
 
   for (const auto& val : variables)
   {
-    file << val.c_str();
+      VariableOccurrenceReadWrite occurrenceReadWrite{};
+    //file << val.c_str();
     int numOfWrite = 0;
     int numrOfRead = 0;
     int numrOfFunctionCall = 0;
@@ -461,23 +470,29 @@ void CheckVariablesForUsage(const std::set<std::string>& variables,const std::ve
     {
       if (line.contains(val))
       {
-        auto varPos = line.find(val, 0);
+        auto varPos = line.find(val);
        
-        if (line.find("=", 0) > varPos)
+        if (line.find('=') > varPos)
           numOfWrite++;
 
-        if(line.find("=", 0) < varPos || (line.find("(", 0) < varPos && line.find(")", varPos) > varPos) || line.find("return", 0) != std::string::npos || (line.find("[", 0) < varPos && line.find("]", varPos) > varPos))
+        if(line.find('=', 0) < varPos || (line.find('(', 0) < varPos && line.find(')', varPos) > varPos) || line.find("return", 0) != std::string::npos || (line.find('[', 0) < varPos && line.find(']', varPos) > varPos))
           numrOfRead++;
 
-        if (line.find("->", varPos) != std::string::npos || line.find(val + ".", varPos) != std::string::npos)
+        if (line.find("->", varPos) != std::string::npos || line.find(val + '.', varPos) != std::string::npos)
           numrOfFunctionCall++;
 
       }
     }
+    occurrenceReadWrite.write_times = numOfWrite;
+    occurrenceReadWrite.read_times = numrOfRead;
+    occurrenceReadWrite.method_times = numrOfFunctionCall;
+    variableOccurrenceReadWrite[val] = occurrenceReadWrite;
+  	/*
     file << " is write: "<< numOfWrite;
     file << ", is read: " << numrOfRead;
-    file << ", is used as argument: " << numrOfFunctionCall << std::endl;
+    file << ", is used as argument: " << numrOfFunctionCall << std::endl;*/
   }
+  return variableOccurrenceReadWrite;
 }
 
 
@@ -649,25 +664,26 @@ int main(int argc, const char** argv)
         std::unordered_map <std::string, std::vector < std::string >> allFiles;
         for (const auto& val : toCheck)
         {
-            
-#ifdef WRITE_TO_FILE
-            file << std::endl << std::endl << std::endl;
-            file << "------FILE------" << std::endl;
-            file << val.hFile << std::endl << std::endl << std::endl;
-#else 
-            std::cout << std::endl << std::endl << std::endl;
-            std::cout << "------FILE------" << std::endl;
-            std::cout << val.hFile << std::endl << std::endl << std::endl;
-#endif
             auto linesH = ReadFile(val.hFile);
             auto linesCpp = ReadFile(val.cppFile);
 
             auto parser = GetUniqueVariables(linesH);
             ClearCppFileFromComments(linesCpp);
-            CheckVariablesForUsage(parser.unique_variables, linesCpp, file);
+
             allFiles[val.hFile] = (linesCpp);
             mapped_parsers[val.hFile] = parser;
-            auto occurence = GetOccurenceOfVariables(parser, linesCpp);
+        }
+
+        for (const auto& check_all_parsers : mapped_parsers)
+        {
+
+            file << std::endl << std::endl;
+            file << "------CLASS------" << std::endl;
+            file << check_all_parsers.first << std::endl << std::endl;
+
+            auto occurrenceVarsReadWrite = CheckVariablesForUsage(check_all_parsers.second.unique_variables, allFiles[check_all_parsers.first]);
+            auto occurrence = GetOccurenceOfVariables(check_all_parsers.second, allFiles[check_all_parsers.first]);
+
 
             struct mapval
             {
@@ -677,7 +693,7 @@ int main(int argc, const char** argv)
 
             std::vector<mapval> valuesM;
 
-            for (const auto& val : occurence)
+            for (const auto& val : occurrence)
             {
                 mapval m;
                 m.s = val.first;
@@ -687,26 +703,29 @@ int main(int argc, const char** argv)
             }
 
             std::sort(valuesM.begin(), valuesM.end(), [](const mapval& first, const mapval& second) {
-                
-                return first.occ < second.occ;
-                
-                });
 
+                return first.occ < second.occ;
+
+                });
+            file << std::endl << std::endl;
+            file << "------VARIABLES------" << std::endl;
+            file << std::endl;
             for (const auto& mVal : valuesM)
             {
 #ifdef WRITE_TO_FILE
                 file << "Variable " << mVal.s << " - occurrence : " << mVal.occ << " times!" << std::endl;
+                file << "Read times: " << occurrenceVarsReadWrite[mVal.s].read_times << std::endl;
+                file << "Write times: " << occurrenceVarsReadWrite[mVal.s].write_times << std::endl;
+                file << "Used in methods: " << occurrenceVarsReadWrite[mVal.s].method_times << std::endl;
 #else
                 std::cout << "Variable " << mVal.s << " - occurrence : " << mVal.occ << " times!" << std::endl;
+                file << "Read times: " << occurrenceVarsReadWrite[mVal.s].read_times << std::endl;
+                file << "Write times: " << occurrenceVarsReadWrite[mVal.s].write_times << std::endl;
+                file << "Used in methods: " << occurrenceVarsReadWrite[mVal.s].method_times << std::endl;
 #endif
             }
 
-
-        }
-
-        for (const auto& check_all_parsers : mapped_parsers)
-        {
-            auto usage = GetMethodOcurence(check_all_parsers.second, allFiles, check_all_parsers.first);
+        	auto usageMethods = GetMethodOcurence(check_all_parsers.second, allFiles, check_all_parsers.first);
 
             struct mapvalS
             {
@@ -714,7 +733,7 @@ int main(int argc, const char** argv)
                 int occ;
             };
             std::vector<mapvalS> sortedMethods;
-            for (const auto& v : usage)
+            for (const auto& v : usageMethods)
             {
                 mapvalS m;
                 m.s = v.first;
@@ -729,7 +748,9 @@ int main(int argc, const char** argv)
 
                 });
 
-            file << std::endl << std::endl << std::endl << "Class : " << check_all_parsers.first << std::endl;
+            file << std::endl << std::endl ;
+            file << "------METHODS------" << std::endl;
+            file << std::endl;
             for (const auto& methods : sortedMethods)
             {
                 file << "Method " << methods.s << " - occurrence : " << methods.occ<< " times!" << std::endl;
