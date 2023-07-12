@@ -472,13 +472,11 @@ std::unordered_map<std::string, VariableOccurrenceReadWrite> CheckVariablesForUs
       {
         auto varPos = line.find(val);
        
-        if (line.find('=') > varPos)
+        if (line.find('=', varPos) != std::string::npos || line.find("++", varPos) != std::string::npos || line.find("--", varPos) != std::string::npos)
           numOfWrite++;
-
-        if(line.find('=', 0) < varPos || (line.find('(', 0) < varPos && line.find(')', varPos) > varPos) || line.find("return", 0) != std::string::npos || (line.find('[', 0) < varPos && line.find(']', varPos) > varPos))
+        else if (line.find('=', 0) < varPos || (line.find('(', 0) < varPos && line.find(')', varPos) > varPos) || line.find("return", 0) != std::string::npos || (line.find('[', 0) < varPos && line.find(']', varPos) > varPos))
           numrOfRead++;
-
-        if (line.find("->", varPos) != std::string::npos || line.find(val + '.', varPos) != std::string::npos)
+        else if (line.find("->", varPos) != std::string::npos || line.find(val + '.', varPos) != std::string::npos)
           numrOfFunctionCall++;
 
       }
