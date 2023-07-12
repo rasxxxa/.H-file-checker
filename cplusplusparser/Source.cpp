@@ -456,13 +456,11 @@ void ClearCppFileFromComments(std::vector<std::string>& lines)
 
 std::unordered_map<std::string, VariableOccurrenceReadWrite> CheckVariablesForUsage(const std::set<std::string>&variables, const std::vector<std::string>&source)
 {
-    std::unordered_map<std::string, VariableOccurrenceReadWrite> variableOccurrenceReadWrite;
-  //file << "------Variable Read/Write------" << std::endl;
+  std::unordered_map<std::string, VariableOccurrenceReadWrite> variableOccurrenceReadWrite;
 
   for (const auto& val : variables)
   {
-      VariableOccurrenceReadWrite occurrenceReadWrite{};
-    //file << val.c_str();
+    VariableOccurrenceReadWrite occurrenceReadWrite{};
     int numOfWrite = 0;
     int numrOfRead = 0;
     int numrOfFunctionCall = 0;
@@ -485,10 +483,6 @@ std::unordered_map<std::string, VariableOccurrenceReadWrite> CheckVariablesForUs
     occurrenceReadWrite.read_times = numrOfRead;
     occurrenceReadWrite.method_times = numrOfFunctionCall;
     variableOccurrenceReadWrite[val] = occurrenceReadWrite;
-  	/*
-    file << " is write: "<< numOfWrite;
-    file << ", is read: " << numrOfRead;
-    file << ", is used as argument: " << numrOfFunctionCall << std::endl;*/
   }
   return variableOccurrenceReadWrite;
 }
