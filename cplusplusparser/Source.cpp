@@ -247,7 +247,7 @@ std::vector<std::string> ParseVariable(const std::string& line, ClassParser& par
     	std::string restOfLine = line.substr(0, pos);
 
         if (restOfLine.back() - 1 == ',' || restOfLine.back() - 2 == ',' || restOfLine.back() == ',')
-            pos = restOfLine.find_last_of(',') - 1;
+            pos = static_cast<int>(restOfLine.find_last_of(',') - 1);
         else
             usable = false;
 
@@ -598,7 +598,9 @@ std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser
 	    {
             for (const auto& combination : possible_name.possible_names)
             {
-                if (line.contains(combination))
+                std::string declaration = "::";
+                declaration.append(combination);
+                if (line.contains(combination) && !line.contains(declaration))
                 {
                     ocurences[possible_name.key_name]++;
                 }
