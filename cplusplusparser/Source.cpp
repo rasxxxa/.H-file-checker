@@ -474,7 +474,7 @@ std::unordered_map<std::string, VariableOccurrenceReadWrite> CheckVariablesForUs
        
         if (line.find('=', varPos) != std::string::npos || line.find("++", varPos) != std::string::npos || line.find("--", varPos) != std::string::npos)
           numOfWrite++;
-        else if (line.find('=', 0) < varPos || (line.find('(', 0) < varPos && line.find(')', varPos) > varPos) || line.find("return", 0) != std::string::npos || (line.find('[', 0) < varPos && line.find(']', varPos) > varPos))
+        else if (line.find('=', 0) < varPos || (line.find('(', 0) < varPos && line.find(')', varPos) != std::string::npos) || line.find("return", 0) != std::string::npos || (line.find('[', 0) < varPos && line.find(']', varPos) > varPos))
           numrOfRead++;
         else if (line.find("->", varPos) != std::string::npos || line.find(val + '.', varPos) != std::string::npos)
           numrOfFunctionCall++;
@@ -621,7 +621,7 @@ std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser
 int main(int argc, const char** argv) 
 {
 #ifdef _DEBUG
-    std::string filesPath = "D:\\magicnhd\\BiCa61A";
+    std::string filesPath = "D:\\Games_Git\\BiCa61A";
     std::string s = "";
     if (argc > 1)
         s = argv[1];
