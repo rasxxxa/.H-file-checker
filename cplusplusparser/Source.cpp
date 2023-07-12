@@ -621,7 +621,7 @@ std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser
 int main(int argc, const char** argv) 
 {
 #ifdef _DEBUG
-    std::string filesPath = "D:\\Games_Git\\BiCa61A";
+    std::string filesPath = "D:\\magicnhd\\BiCa61A";
     std::string s = "";
     if (argc > 1)
         s = argv[1];
