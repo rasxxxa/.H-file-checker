@@ -7,6 +7,7 @@
 #include <regex>
 #include <unordered_map>
 #include <filesystem>
+#include <map>
 
 struct ClassParser
 {
@@ -176,11 +177,11 @@ void RemoveStructs(std::vector<std::string>& lines)
             while (!parentesis.empty() && pos + 1 != lines.size())
             {
                 pos++;
-                if (lines[pos].contains("}"))
+                if (lines[pos].contains("};") && lines[pos].find("};") < 5)
                 {
                     parentesis.pop();
                 }
-                else if (lines[pos].contains("{"))
+                else if (lines[pos].contains("struct"))
                 {
                     parentesis.push('{');
                 }
@@ -744,7 +745,7 @@ int main(int argc, const char** argv)
 {
 #ifndef TEST
 #ifdef _DEBUG
-    std::string filesPath = "D:\\magicnhd\\BiCa61A";
+    std::string filesPath = "D:\\Games_git\\Reel3b30";
     std::string s = "";
     if (argc > 1)
         s = argv[1];
@@ -761,7 +762,7 @@ int main(int argc, const char** argv)
             std::string cppFile;
         };
 
-        std::unordered_map<std::string, std::vector<ClassParser>> mapped_parsers;
+        std::map<std::string, std::vector<ClassParser>> mapped_parsers;
 
         std::vector<Files> toCheck;
 
