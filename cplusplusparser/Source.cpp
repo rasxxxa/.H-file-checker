@@ -404,13 +404,17 @@ void RemoveEmptyLines(std::vector<std::string>& lines)
 
 
 
-ClassParser GetUniqueVariables(std::vector<std::string>& lines)
+std::vector<ClassParser> GetUniqueVariables(std::vector<std::string>& lines)
 {
-    ClassParser parser;
+    std::vector<ClassParser> parsers;
 
+    ClassParser parser;
+    std::string className;
     std::set<std::string> unique_variables;
     std::set<std::string> methods;
     std::vector<std::string> linesWithoutComments;
+    std::vector<std::string> classLines;
+    std::vector<std::vector<std::string>> classLinesVector;
 
     for (const auto& line : lines)
     {
@@ -431,46 +435,57 @@ ClassParser GetUniqueVariables(std::vector<std::string>& lines)
 
     for (const auto& line : linesWithoutComments)
     {
-
         if (IsClass(line))
         {
-            if (parser.class_name.empty())
+            size_t pos = line.find_first_not_of("class");
+            if (pos != std::string::npos)
             {
-                size_t pos = line.find_first_not_of("class");
-                if (pos != std::string::npos)
+                while (pos != line.size() && (!std::isalpha(line[pos])) || line[pos] == '_') pos++;
+                while (std::isalpha(line[pos]) || line[pos] == '_') { className.push_back(line[pos]); pos++; }
+                if (!className.empty())
                 {
-                    while (pos != line.size() && (!std::isalpha(line[pos])) || line[pos] == '_') pos++;
-                    std::string className;
-                    while (std::isalpha(line[pos]) || line[pos] == '_') { className.push_back(line[pos]); pos++; }
-                    if (!className.empty()) parser.class_name = className;
+                    parser.class_name = className;
                 }
             }
-            continue;
+            
         }
-    }
-
-
-
-
-    std::vector<std::string> methodNames;
-    RemoveMethods(linesWithoutComments, methodNames, parser);
-
-    for (const auto& val : linesWithoutComments)
-    {
-        std::string copy = val;
-        auto vars = ParseVariable(copy, parser);
-        if (!vars.empty())
+        else if (line.compare("};") == 0)
         {
-            for (auto valS : vars)
-                unique_variables.insert(valS);
+            classLinesVector.push_back(classLines);
+            classLines.clear();
+            parsers.push_back(parser);
+            className.clear();
+        }
+        else if (!className.empty())
+        {
+            classLines.push_back(line);
         }
     }
-    parser.unique_variables = unique_variables;
-    if (!parser.global_pointer.empty())
+
+    std::vector<std::vector<std::string>> methodNames;
+    methodNames.resize(parsers.size());
+    for (auto i = 0; i < parsers.size(); i++)
     {
-        parser.unique_variables.erase(parser.global_pointer);
+        RemoveMethods(classLinesVector[i], methodNames[i], parsers[i]);
+
+        for (const auto& val : classLinesVector[i])
+        {
+            std::string copy = val;
+            auto vars = ParseVariable(copy, parsers[i]);
+            if (!vars.empty())
+            {
+                for (auto valS : vars)
+                    unique_variables.insert(valS);
+            }
+        }
+        parsers[i].unique_variables = unique_variables;
+        if (!parsers[i].global_pointer.empty())
+        {
+            parsers[i].unique_variables.erase(parser.global_pointer);
+        }
     }
-    return parser;
+    
+    return parsers;
 }
 
 
@@ -829,9 +844,9 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-std::string filesPath = "D:\\magicnhd\\BiCa61A\\LockAndSpin\\VLockAndSpinGame.h";
+std::string filesPath = "D:\\magicnhd\\BiCa61A\\LockAndSpin\\VLockAndSpinReel.h";
 auto linesH = ReadFile(filesPath);
-auto parser = GetUniqueVariables(linesH);
+auto parsers = GetUniqueVariables(linesH);
 #endif
 
 
