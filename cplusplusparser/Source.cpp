@@ -90,7 +90,7 @@ bool IsCommentLine(const std::string& line, std::string& formatted)
 
 bool IsNewLineOrEmpty(const std::string& line)
 {
-    return line.size() <= 2;
+    return line.empty();
 }
 
 
@@ -100,11 +100,10 @@ bool IsPrivateProtectedOrPublic(const std::string& line)
 }
 
 
-std::set<std::string> FindAllStructs(std::vector<std::string>& lines)
+void RemoveStructs(std::vector<std::string>& lines)
 {
     std::vector<std::string> newLines;
     size_t pos = 0;
-    std::set<std::string> structs;
     while (pos != lines.size())
     {
         std::regex pattern("\\bstruct\\b");
@@ -148,11 +147,8 @@ std::set<std::string> FindAllStructs(std::vector<std::string>& lines)
                     parentesis.push('{');
                 }
             }
-            if (!structName.empty())
-            {
-                structs.insert(structName);
-            }
-            else
+
+            if (structName.empty())
             {
                 std::string copyLine = lines[pos];
                 auto it = std::remove_if(copyLine.begin(), copyLine.end(), [](char a) {
@@ -162,8 +158,6 @@ std::set<std::string> FindAllStructs(std::vector<std::string>& lines)
                     });
 
                 copyLine.erase(it, copyLine.end());
-
-                structs.insert(copyLine);
             }
 
 
@@ -176,7 +170,6 @@ std::set<std::string> FindAllStructs(std::vector<std::string>& lines)
         pos++;
     }
     lines = std::vector(newLines);
-    return structs;
 }
 
 
@@ -360,6 +353,21 @@ void RemoveMethods(std::vector<std::string>& lines, std::vector<std::string>& re
     lines = std::vector<std::string>(withoudMethods);
 };
 
+void RemoveEmptyLines(std::vector<std::string>& lines)
+{
+    std::vector<std::string> newLines;
+
+    for (const auto& line : lines)
+    {
+        if (IsNewLineOrEmpty(line))
+            continue;
+        else
+            newLines.push_back(line);
+    }
+
+    lines = std::vector(newLines);
+}
+
 
 
 ClassParser GetUniqueVariables(std::vector<std::string>& lines)
@@ -368,7 +376,6 @@ ClassParser GetUniqueVariables(std::vector<std::string>& lines)
 
     std::set<std::string> unique_variables;
     std::set<std::string> methods;
-    std::set<std::string> structs;
     std::vector<std::string> linesWithoutComments;
 
     for (const auto& line : lines)
@@ -383,12 +390,13 @@ ClassParser GetUniqueVariables(std::vector<std::string>& lines)
             linesWithoutComments.push_back(formatted);
     }
 
-    std::vector<std::string> linesWithoutNewLines;
+    RemoveEnums(linesWithoutComments);
+    RemoveStructs(linesWithoutComments);
+    RemoveNamespaces(linesWithoutComments);
+    RemoveEmptyLines(linesWithoutComments);
 
     for (const auto& line : linesWithoutComments)
     {
-        if (IsNewLineOrEmpty(line))
-            continue;
 
         if (IsClass(line))
         {
@@ -405,19 +413,15 @@ ClassParser GetUniqueVariables(std::vector<std::string>& lines)
             }
             continue;
         }
-        linesWithoutNewLines.push_back(line);
     }
 
 
-    RemoveEnums(linesWithoutNewLines);
 
-	structs = FindAllStructs(linesWithoutNewLines);
 
     std::vector<std::string> methodNames;
-    RemoveMethods(linesWithoutNewLines, methodNames, parser);
-    RemoveNamespaces(linesWithoutNewLines);
+    RemoveMethods(linesWithoutComments, methodNames, parser);
 
-    for (const auto& val : linesWithoutNewLines)
+    for (const auto& val : linesWithoutComments)
     {
         std::string copy = val;
         auto vars = ParseVariable(copy, parser);
@@ -611,11 +615,14 @@ std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser
     return ocurences;
 }
 
+#define TEST
+
 
 #define WRITE_TO_FILE
 
 int main(int argc, const char** argv) 
 {
+#ifndef TEST
 #ifdef _DEBUG
     std::string filesPath = "D:\\magicnhd\\BiCa61A";
     std::string s = "";
@@ -787,4 +794,11 @@ int main(int argc, const char** argv)
 
 
     return 0;
+#else
+std::string filesPath = "D:\\magicnhd\\BiCa61A\\LockAndSpin\\VLockAndSpinGame.h";
+auto linesH = ReadFile(filesPath);
+auto parser = GetUniqueVariables(linesH);
+#endif
+
+
 }
