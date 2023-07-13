@@ -24,6 +24,10 @@ struct VariableOccurrenceReadWrite
     size_t read_times;
     size_t write_times;
     size_t method_times;
+    constexpr bool operator ==(const VariableOccurrenceReadWrite& other) const
+    {
+      return read_times == other.read_times && write_times == other.write_times && method_times == other.method_times;
+    }
 };
 
 enum class Visibility
@@ -44,7 +48,7 @@ concept IsVectorOrArray = requires(T a)
 template <typename Func, typename In, typename... Args>
 constexpr bool RunEqualTests(In argTest, Func func, Args... args)
 {
-    if constexpr (std::is_integral_v<decltype(func(std::forward<Args>(args)...))>)
+    if constexpr (std::is_integral_v<decltype(func(std::forward<Args>(args)...))> || std::is_same_v<decltype(func(std::forward<Args>(args)...)), VariableOccurrenceReadWrite>)
     {
         return (func(std::forward<Args>(args)...) == argTest);
     }
@@ -545,6 +549,35 @@ void ClearCppFileFromComments(std::vector<std::string>& lines)
     lines = std::vector<std::string>(copy);
 }
 
+
+
+
+VariableOccurrenceReadWrite GetLineVariableOccurrence(const std::string& line, const std::string& variable)
+{
+  VariableOccurrenceReadWrite occurrenceReadWrite{};
+  int numOfWrite = 0;
+  int numrOfRead = 0;
+  int numrOfFunctionCall = 0;
+  if (line.contains(variable))
+  {
+    auto varPos = line.find(variable);
+
+    if (line.find('=', 0) < varPos || (line.find('(', 0) < varPos && line.find(')', varPos) != std::string::npos) || line.find("return", 0) != std::string::npos || (line.find('[', 0) < varPos && line.find(']', varPos) > varPos) || line.find("==") != std::string::npos || line.find("!=") != std::string::npos)
+      numrOfRead++;
+    else if (line.find('=', varPos) != std::string::npos || line.find("++", varPos) != std::string::npos || line.find("--", varPos) != std::string::npos)
+      numOfWrite++;
+    else if (line.find("->", varPos) != std::string::npos || line.find(variable + '.', varPos) != std::string::npos)
+      numrOfFunctionCall++;
+  }
+
+  occurrenceReadWrite.write_times = numOfWrite;
+  occurrenceReadWrite.read_times = numrOfRead;
+  occurrenceReadWrite.method_times = numrOfFunctionCall;
+  return occurrenceReadWrite;
+}
+
+
+
 std::unordered_map<std::string, VariableOccurrenceReadWrite> CheckVariablesForUsage(const std::set<std::string>&variables, const std::vector<std::string>&source)
 {
   std::unordered_map<std::string, VariableOccurrenceReadWrite> variableOccurrenceReadWrite;
@@ -561,10 +594,10 @@ std::unordered_map<std::string, VariableOccurrenceReadWrite> CheckVariablesForUs
       {
         auto varPos = line.find(val);
        
-        if (line.find('=', varPos) != std::string::npos || line.find("++", varPos) != std::string::npos || line.find("--", varPos) != std::string::npos)
-          numOfWrite++;
-        else if (line.find('=', 0) < varPos || (line.find('(', 0) < varPos && line.find(')', varPos) != std::string::npos) || line.find("return", 0) != std::string::npos || (line.find('[', 0) < varPos && line.find(']', varPos) > varPos))
+        if (line.find('=', 0) < varPos || (line.find('(', 0) < varPos && line.find(')', varPos) != std::string::npos) || line.find("return", 0) != std::string::npos || (line.find('[', 0) < varPos && line.find(']', varPos) > varPos) || line.find("==") != std::string::npos || line.find("!=") != std::string::npos)
           numrOfRead++;
+        else if (line.find('=', varPos) != std::string::npos || line.find("++", varPos) != std::string::npos || line.find("--", varPos) != std::string::npos)
+          numOfWrite++;
         else if (line.find("->", varPos) != std::string::npos || line.find(val + '.', varPos) != std::string::npos)
           numrOfFunctionCall++;
 
