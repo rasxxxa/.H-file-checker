@@ -32,6 +32,40 @@ enum class Visibility
     Public
 };
 
+
+template <typename T>
+concept IsVectorOrArray = requires(T a)
+{
+    a.begin();
+    a.end();
+    T::value_type;
+};
+
+template <typename Func, typename In, typename... Args>
+constexpr bool RunEqualTests(In argTest, Func func, Args... args)
+{
+    if constexpr (std::is_integral_v<decltype(func(std::forward<Args>(args)...))>)
+    {
+        return (func(std::forward<Args>(args)...) == argTest);
+    }
+    else if constexpr (std::is_same_v<decltype(func(std::forward<Args>(args)...)), float>)
+    {
+        return (abs(func(std::forward<Args>(args)...) - argTest) <= std::numeric_limits<float>::epsilon());
+    }
+    else if constexpr (IsVectorOrArray<decltype(func(std::forward<Args>(args)...))>)
+    {
+        auto val = func(std::forward<Args>(args)...);
+        return std::equal(std::begin(val), std::end(val), std::begin(argTest), std::end(argTest), [](const auto& val1, const auto& val2)
+            {
+                return abs(float(val1) - float(val2)) <= std::numeric_limits<float>::epsilon();
+            });
+    }
+
+    return false;
+}
+
+
+
 std::vector<std::string> ReadFile(const std::string_view& filePath)
 {
     std::vector<std::string> file;
