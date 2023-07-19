@@ -926,9 +926,7 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-std::string filesPath = "D:\\magicnhd\\BiCa61A\\LockAndSpin\\VLockAndSpinGame.h";
-auto linesH = ReadFile(filesPath);
-auto parsers = GetUniqueVariables(linesH);
+
 #endif
 
 
