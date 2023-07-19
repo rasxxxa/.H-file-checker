@@ -139,7 +139,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AdditionalFilesHelper.ixx" />
+    <ClCompile Include="Analyzer.cpp" />
+    <ClCompile Include="ClassRemover.cpp" />
+    <ClCompile Include="CommentRemover.cpp" />
+    <ClCompile Include="CPPFileParser.cpp" />
+    <ClCompile Include="EmptyLinesRemover.cpp" />
+    <ClCompile Include="EnumRemover.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="HFileParser.cpp" />
+    <ClCompile Include="MethodRemover.cpp" />
+    <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="ParserType.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="VariableRemover.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Analyzer.h" />
+    <ClInclude Include="ClassRemover.h" />
+    <ClInclude Include="CommentRemover.h" />
+    <ClInclude Include="CPPFileParser.h" />
+    <ClInclude Include="EmptyLinesRemover.h" />
+    <ClInclude Include="EnumRemover.h" />
+    <ClInclude Include="File.h" />
+    <ClInclude Include="HFileParser.h" />
+    <ClInclude Include="MethodRemover.h" />
+    <ClInclude Include="Parser.h" />
+    <ClInclude Include="ParserType.h" />
+    <ClInclude Include="VariableRemover.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
