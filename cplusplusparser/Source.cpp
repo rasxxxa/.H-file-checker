@@ -12,6 +12,7 @@
 #include "CommentRemover.h"
 #include "ClassRemover.h"
 #include "StructRemover.h"
+#include "EnumRemover.h"
 #define TEST
 #ifndef TEST
 struct ClassParser
@@ -929,13 +930,24 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-auto file = File::ReadFile("DBingoCards.h");
+auto file = File::ReadFile("DBingoCard.h");
 //File::WriteToFile("Test.txt", file);
 CommentRemover commentRemover;
 ClassRemover classRemover;
 StructRemover structRemover;
+EnumRemover enumRemover;
 auto comments = commentRemover.ParseLines(file);
-auto classes = structRemover.ParseLines(file);
+//auto classes = structRemover.ParseLines(file);
+auto enums = enumRemover.ParseLines(file);
+
+for (const auto& enumR : enums)
+{
+    for (const auto& enumK : enumR)
+    {
+        std::cout << enumK << std::endl;
+    }
+}
+
 #endif
 
 
