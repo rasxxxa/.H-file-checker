@@ -30,6 +30,11 @@ export
         }
     };
 
+    inline bool IsOnlySpaces(const std::string& line)
+    {
+        return std::all_of(line.begin(), line.end(), [](const char a) {return std::isspace(a); });
+    }
+
     enum class Visibility
     {
         Private,

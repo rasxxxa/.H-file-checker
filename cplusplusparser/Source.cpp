@@ -11,6 +11,7 @@
 #include "File.hpp"
 #include "CommentRemover.h"
 #include "ClassRemover.h"
+#include "EmptyLinesRemover.h"
 #include "StructRemover.h"
 #include "EnumRemover.h"
 #include "NamespaceRemover.h"
@@ -938,11 +939,18 @@ ClassRemover classRemover;
 StructRemover structRemover;
 EnumRemover enumRemover;
 NamespaceRemover namespaceRemover;
-auto comments = commentRemover.ParseLines(file);
+EmptyLinesRemover linesRemvoer;
+//auto comments = commentRemover.ParseLines(file);
 //auto classes = structRemover.ParseLines(file);
 //auto enums = enumRemover.ParseLines(file);
-auto nrem = classRemover.ParseLines(file);
-int x = 0;
+//auto nrem = classRemover.ParseLines(file);
+auto withoutEmptyLines = linesRemvoer.ParseLines(file);
+
+for (auto lines : file)
+{
+    std::cout << lines << std::endl;
+}
+
 #endif
 
 
