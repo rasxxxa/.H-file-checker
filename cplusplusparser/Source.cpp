@@ -931,7 +931,7 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-auto file = File::ReadFile("GCVButto.cpp");
+auto file = File::ReadFile("DBingoCard.h");
 //File::WriteToFile("Test.txt", file);
 CommentRemover commentRemover;
 ClassRemover classRemover;
@@ -941,16 +941,8 @@ NamespaceRemover namespaceRemover;
 auto comments = commentRemover.ParseLines(file);
 //auto classes = structRemover.ParseLines(file);
 //auto enums = enumRemover.ParseLines(file);
-auto nrem = namespaceRemover.ParseLines(file);
-
-for (const auto& enumR : nrem)
-{
-    for (const auto& enumK : enumR)
-    {
-        std::cout << enumK << std::endl;
-    }
-}
-
+auto nrem = classRemover.ParseLines(file);
+int x = 0;
 #endif
 
 

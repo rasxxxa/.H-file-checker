@@ -4,6 +4,8 @@ export import <string>;
 export import <set>;
 export import <vector>;
 export import <regex>;
+export import <unordered_map>;
+export import <cassert>;
 
 export
 {
@@ -32,6 +34,22 @@ export
     {
         Private,
         Public
+    };
+
+    enum class TypeOfEncapsulation
+    {
+        Struct,
+        Class,
+        Namespace,
+        Enum
+    };
+
+    std::unordered_map<TypeOfEncapsulation, const std::string> mapped_encapsulation
+    {
+        { TypeOfEncapsulation::Struct, "struct" },
+        { TypeOfEncapsulation::Class, "class" },
+        { TypeOfEncapsulation::Namespace, "namespace" },
+        { TypeOfEncapsulation::Enum, "enum" },
     };
 
     struct Parenthesis
@@ -83,5 +101,99 @@ export
         }
 
         return parenthesis;
+    }
+    
+    inline bool IsElement(const std::string& line, TypeOfEncapsulation encapsulation)
+    {
+        switch (encapsulation)
+        {
+        case TypeOfEncapsulation::Struct:
+        {
+            std::regex pattern("\\bstruct\\b");
+            return std::regex_search(line, pattern);
+        }
+        case TypeOfEncapsulation::Class:
+        {
+            std::regex pattern("\\bclass\\b");
+            return std::regex_search(line, pattern);
+        }
+        case TypeOfEncapsulation::Namespace:
+        {
+            std::regex pattern("\\bnamespace\\b");
+            return std::regex_search(line, pattern);
+        }
+        case TypeOfEncapsulation::Enum:
+        {
+            std::regex pattern("\\benum\\b");
+            return std::regex_search(line, pattern);
+        }
+        default:
+        {
+            assert(false);
+            return false;
+        }
+        }
+    }
+
+    std::vector<std::vector<std::string>> FindAllEncapsulations(TypeOfEncapsulation encapsulation, std::vector<std::string>& lines)
+    {
+        std::vector<std::vector<std::string>> elements;
+        std::vector<std::vector<std::string>> elements_temp;
+        std::vector<std::string> other_lines;
+        size_t pos = 0;
+        bool any_elements_found = false;
+        size_t elements_number = 0;
+        size_t opened_parenthesis = 0;
+        size_t elements_found_number = 0;
+        while (pos < lines.size())
+        {
+            if (IsElement(lines[pos], encapsulation))
+            {
+                std::vector<std::string> namespace_found;
+                namespace_found.push_back(lines[pos]);
+                elements_temp.push_back(namespace_found);
+                any_elements_found = true;
+                elements_number++;
+                elements_found_number++;
+                Parenthesis parenthesis_number = CountParenthesis(lines[pos]);
+                opened_parenthesis += parenthesis_number.left;
+                opened_parenthesis -= parenthesis_number.right;
+                if (opened_parenthesis < elements_number && parenthesis_number.left > 0)
+                {
+                    elements.push_back(elements_temp.back());
+                    elements_temp.pop_back();
+
+                    if (!--elements_number)
+                        any_elements_found = false;
+                }
+            }
+            else if (any_elements_found)
+            {
+                elements_temp[elements_temp.size() - 1].push_back(lines[pos]);
+                Parenthesis parenthesis_number = CountParenthesis(lines[pos]);
+                opened_parenthesis += parenthesis_number.left;
+                opened_parenthesis -= parenthesis_number.right;
+                if (opened_parenthesis < elements_number)
+                {
+                    elements.push_back(elements_temp.back());
+                    elements_temp.pop_back();
+
+                    if (!--elements_number)
+                        any_elements_found = false;
+                }
+            }
+            else if (encapsulation == TypeOfEncapsulation::Class && lines[pos].find("extern") != std::string::npos)
+            {
+                elements[elements.size() - 1].push_back(lines[pos]);
+            }
+            else
+            {
+                other_lines.push_back(lines[pos]);
+            }
+            pos++;
+        }
+
+        lines = std::vector(other_lines);
+        return elements;
     }
 }
