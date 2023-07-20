@@ -152,6 +152,7 @@
     <ClCompile Include="EnumRemover.cpp" />
     <ClCompile Include="HFileParser.cpp" />
     <ClCompile Include="MethodRemover.cpp" />
+    <ClCompile Include="NamespaceRemover.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="ParserType.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="File.hpp" />
     <ClInclude Include="HFileParser.h" />
     <ClInclude Include="MethodRemover.h" />
+    <ClInclude Include="NamespaceRemover.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ParserType.h" />
     <ClInclude Include="StructRemover.h" />
