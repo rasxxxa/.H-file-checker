@@ -11,6 +11,7 @@
 #include "File.hpp"
 #include "CommentRemover.h"
 #include "ClassRemover.h"
+#include "ClassNameExtracter.h"
 #include "EmptyLinesRemover.h"
 #include "StructRemover.h"
 #include "EnumRemover.h"
@@ -935,7 +936,7 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-auto file = File::ReadFile("DBingoCards.h");
+auto file = File::ReadFile("DBingoCard.h");
 //File::WriteToFile("Test.txt", file);
 CommentRemover commentRemover;
 ClassRemover classRemover;
@@ -948,19 +949,28 @@ auto comments = commentRemover.ParseLines(file);
 auto withoutEmptyLines = linesRemvoer.ParseLines(file);
 auto enums = enumRemover.ParseLines(file);
 auto classes = classRemover.ParseLines(file);
+ClassNameExtracter extraxter;
+MethodsVariableCounter counter;
+
+for (auto& classe : classes)
+{
+    extraxter.Extract(classe, counter);
+    std::cout << counter.class_name << std::endl;
+}
+
 
 //auto nrem = classRemover.ParseLines(file);
-
-MethodsVariableCounter counter;
-extracter.Extract(classes[0], counter);
-
-VariableExtracter extrac;
-extrac.Extract(classes[0], counter);
-
-for (auto lines : file)
-{
-    std::cout << lines << std::endl;
-}
+//
+//MethodsVariableCounter counter;
+//extracter.Extract(classes[0], counter);
+//
+//VariableExtracter extrac;
+//extrac.Extract(classes[0], counter);
+//
+//for (auto lines : file)
+//{
+//    std::cout << lines << std::endl;
+//}
 
 #endif
 

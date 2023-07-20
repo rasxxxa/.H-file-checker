@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="AdditionalFilesHelper.ixx" />
     <ClCompile Include="Analyzer.cpp" />
+    <ClCompile Include="ClassNameExtracter.cpp" />
     <ClCompile Include="ClassRemover.cpp" />
     <ClCompile Include="CommentRemover.cpp" />
     <ClCompile Include="CPPFileParser.cpp" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Analyzer.h" />
+    <ClInclude Include="ClassNameExtracter.h" />
     <ClInclude Include="ClassRemover.h" />
     <ClInclude Include="CommentRemover.h" />
     <ClInclude Include="CPPFileParser.h" />
