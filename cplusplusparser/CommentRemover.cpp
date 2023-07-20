@@ -38,11 +38,13 @@ namespace
     }
 }
 
-std::vector<std::string> CommentRemover::ParseLines(std::vector<std::string>& lines)
+std::vector<std::vector<std::string>> CommentRemover::ParseLines(std::vector<std::string>& lines)
 {
 	// Remove comments from lines and return them
-    std::vector<std::string> comments_lines, lines_without_comments;
-
+    // This case return 1 dimension vector lines
+    std::vector<std::vector<std::string>> comments_lines;
+    std::vector<std::string> lines_without_comments;
+    std::vector<std::string> comments;
     for (const auto& line : lines)
     {
         std::string formatted;
@@ -51,9 +53,10 @@ std::vector<std::string> CommentRemover::ParseLines(std::vector<std::string>& li
         else if (!formatted.empty())
             lines_without_comments.push_back(formatted);
         else
-            comments_lines.push_back(line);
+            comments.push_back(line);
     }
 
     lines = std::vector(lines_without_comments);
+    comments_lines.push_back(comments);
     return comments_lines;
 }

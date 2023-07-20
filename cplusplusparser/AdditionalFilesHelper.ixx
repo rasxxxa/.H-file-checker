@@ -3,6 +3,7 @@ export module AdditionalFilesHelper;
 export import <string>;
 export import <set>;
 export import <vector>;
+export import <regex>;
 
 export
 {
@@ -31,6 +32,12 @@ export
     {
         Private,
         Public
+    };
+
+    struct Parenthesis
+    {
+        size_t left{ 0 };
+        size_t right{ 0 };
     };
 
     template <typename T>
@@ -64,5 +71,17 @@ export
         return false;
     }
 
+    Parenthesis CountParenthesis(const std::string& line)
+    {
+        Parenthesis parenthesis;
+        for (const auto& character : line)
+        {
+            if (character == '{')
+                parenthesis.left++;
+            else if (character == '}')
+                parenthesis.right++;
+        }
 
+        return parenthesis;
+    }
 }

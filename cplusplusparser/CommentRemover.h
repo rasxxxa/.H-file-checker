@@ -6,6 +6,6 @@ class CommentRemover :
 public:
     // returns comment lines
     // accepts all lines with comments
-    virtual std::vector<std::string> ParseLines(std::vector<std::string>& lines) override;
+    virtual std::vector<std::vector<std::string>> ParseLines(std::vector<std::string>& lines) override;
 };
 

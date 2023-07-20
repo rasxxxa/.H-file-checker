@@ -9,6 +9,6 @@ public:
 	ParserType(const ParserType& parser_type) = delete;
 	ParserType operator = (const ParserType& parser_type) = delete;
 protected: 
-	virtual std::vector<std::string> ParseLines(std::vector<std::string>& lines) = 0;
+	virtual std::vector<std::vector<std::string>> ParseLines(std::vector<std::string>& lines) = 0;
 };
 
