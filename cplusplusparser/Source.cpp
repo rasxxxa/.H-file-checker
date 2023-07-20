@@ -14,7 +14,9 @@
 #include "EmptyLinesRemover.h"
 #include "StructRemover.h"
 #include "EnumRemover.h"
+#include "MethodExtracter.h"
 #include "NamespaceRemover.h"
+import AdditionalFilesHelper;
 #define TEST
 #ifndef TEST
 struct ClassParser
@@ -940,11 +942,15 @@ StructRemover structRemover;
 EnumRemover enumRemover;
 NamespaceRemover namespaceRemover;
 EmptyLinesRemover linesRemvoer;
-//auto comments = commentRemover.ParseLines(file);
-//auto classes = structRemover.ParseLines(file);
+MethodExtracter extracter;
+auto comments = commentRemover.ParseLines(file);
+auto withoutEmptyLines = linesRemvoer.ParseLines(file);
+auto classes = classRemover.ParseLines(file);
 //auto enums = enumRemover.ParseLines(file);
 //auto nrem = classRemover.ParseLines(file);
-auto withoutEmptyLines = linesRemvoer.ParseLines(file);
+
+MethodsVariableCounter counter;
+extracter.Extract(classes[4], counter);
 
 for (auto lines : file)
 {

@@ -9,12 +9,12 @@ export import <cassert>;
 
 export
 {
-    struct ClassParser
+    struct MethodsVariableCounter
     {
-        std::set<std::string> unique_variables;
         std::set<std::string> private_methods;
         std::set<std::string> public_methods;
         std::set<std::string> static_methods;
+        std::set<std::string> unique_variables;
         std::string class_name;
         std::string global_pointer;
     };

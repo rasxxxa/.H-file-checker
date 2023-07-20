@@ -45,7 +45,7 @@
     <ClCompile Include="CommentRemover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MethodRemover.cpp">
+    <ClCompile Include="MethodExtracter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VariableRemover.cpp">
@@ -58,6 +58,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NamespaceRemover.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VariableMethodExtracter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +95,7 @@
     <ClInclude Include="CommentRemover.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MethodRemover.h">
+    <ClInclude Include="MethodExtracter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VariableRemover.h">
@@ -102,6 +105,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NamespaceRemover.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VariableMethodExtracter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

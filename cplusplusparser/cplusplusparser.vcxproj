@@ -151,12 +151,13 @@
     <ClCompile Include="EmptyLinesRemover.cpp" />
     <ClCompile Include="EnumRemover.cpp" />
     <ClCompile Include="HFileParser.cpp" />
-    <ClCompile Include="MethodRemover.cpp" />
+    <ClCompile Include="MethodExtracter.cpp" />
     <ClCompile Include="NamespaceRemover.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="ParserType.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="StructRemover.cpp" />
+    <ClCompile Include="VariableMethodExtracter.cpp" />
     <ClCompile Include="VariableRemover.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,11 +169,12 @@
     <ClInclude Include="EnumRemover.h" />
     <ClInclude Include="File.hpp" />
     <ClInclude Include="HFileParser.h" />
-    <ClInclude Include="MethodRemover.h" />
+    <ClInclude Include="MethodExtracter.h" />
     <ClInclude Include="NamespaceRemover.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ParserType.h" />
     <ClInclude Include="StructRemover.h" />
+    <ClInclude Include="VariableMethodExtracter.h" />
     <ClInclude Include="VariableRemover.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
