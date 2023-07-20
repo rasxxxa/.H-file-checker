@@ -21,9 +21,6 @@
     <ClCompile Include="Analyzer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="File.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -62,7 +59,7 @@
     <ClInclude Include="Analyzer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="File.h">
+    <ClInclude Include="File.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Parser.h">

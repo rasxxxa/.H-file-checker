@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include <filesystem>
 #include <map>
+#include "File.hpp"
+
 
 struct ClassParser
 {
@@ -736,7 +738,7 @@ std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser
     return ocurences;
 }
 
-//#define TEST
+#define TEST
 
 
 #define WRITE_TO_FILE
@@ -926,7 +928,8 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-
+//auto file = File::ReadFile("DBingoCards.cpp");
+//File::WriteToFile("Test.txt", file);
 #endif
 
 
