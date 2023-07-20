@@ -14,6 +14,7 @@
 #include "EmptyLinesRemover.h"
 #include "StructRemover.h"
 #include "EnumRemover.h"
+#include "VariableExtracter.h"
 #include "MethodExtracter.h"
 #include "NamespaceRemover.h"
 import AdditionalFilesHelper;
@@ -934,7 +935,7 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-auto file = File::ReadFile("DBingoCard.h");
+auto file = File::ReadFile("DBingoCards.h");
 //File::WriteToFile("Test.txt", file);
 CommentRemover commentRemover;
 ClassRemover classRemover;
@@ -945,12 +946,16 @@ EmptyLinesRemover linesRemvoer;
 MethodExtracter extracter;
 auto comments = commentRemover.ParseLines(file);
 auto withoutEmptyLines = linesRemvoer.ParseLines(file);
+auto enums = enumRemover.ParseLines(file);
 auto classes = classRemover.ParseLines(file);
-//auto enums = enumRemover.ParseLines(file);
+
 //auto nrem = classRemover.ParseLines(file);
 
 MethodsVariableCounter counter;
-extracter.Extract(classes[4], counter);
+extracter.Extract(classes[0], counter);
+
+VariableExtracter extrac;
+extrac.Extract(classes[0], counter);
 
 for (auto lines : file)
 {

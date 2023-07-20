@@ -158,7 +158,7 @@
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="StructRemover.cpp" />
     <ClCompile Include="VariableMethodExtracter.cpp" />
-    <ClCompile Include="VariableRemover.cpp" />
+    <ClCompile Include="VariableExtracter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Analyzer.h" />
@@ -175,7 +175,7 @@
     <ClInclude Include="ParserType.h" />
     <ClInclude Include="StructRemover.h" />
     <ClInclude Include="VariableMethodExtracter.h" />
-    <ClInclude Include="VariableRemover.h" />
+    <ClInclude Include="VariableExtracter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

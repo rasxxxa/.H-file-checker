@@ -48,7 +48,7 @@
     <ClCompile Include="MethodExtracter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VariableRemover.cpp">
+    <ClCompile Include="VariableExtracter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AdditionalFilesHelper.ixx">
@@ -98,7 +98,7 @@
     <ClInclude Include="MethodExtracter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VariableRemover.h">
+    <ClInclude Include="VariableExtracter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StructRemover.h">
