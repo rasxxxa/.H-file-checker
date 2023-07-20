@@ -9,8 +9,9 @@
 #include <filesystem>
 #include <map>
 #include "File.hpp"
-
-
+#include "CommentRemover.h"
+#define TEST
+#ifndef TEST
 struct ClassParser
 {
     std::set<std::string> unique_variables;
@@ -737,9 +738,7 @@ std::unordered_map<std::string, int> GetMethodOcurence(const ClassParser& parser
 
     return ocurences;
 }
-
-#define TEST
-
+#endif
 
 #define WRITE_TO_FILE
 
@@ -928,8 +927,14 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-//auto file = File::ReadFile("DBingoCards.cpp");
+auto file = File::ReadFile("DBingoCards.cpp");
 //File::WriteToFile("Test.txt", file);
+CommentRemover commentRemover;
+
+auto comments = commentRemover.ParseLines(file);
+
+File::WriteToFile("Test.txt", comments);
+
 #endif
 
 
