@@ -1,7 +1,7 @@
 #pragma once
-#include "VariableMethodExtracter.h"
+#include "ElementExtracter.h"
 class MethodExtracter :
-    public VariableMethodExtracter
+    public ElementExtracter
 {
 public:
     // Comments should be removed before calling this one, also should be called on one instance of class

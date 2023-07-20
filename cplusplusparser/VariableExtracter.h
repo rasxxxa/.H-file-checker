@@ -1,7 +1,7 @@
 #pragma once
-#include "VariableMethodExtracter.h"
+#include "ElementExtracter.h"
 class VariableExtracter final
-	: public VariableMethodExtracter
+	: public ElementExtracter
 {
 public:
 	// For clearest results, call after namespace, struct, enum remover, and method extracted
