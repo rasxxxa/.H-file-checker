@@ -11,6 +11,7 @@
 #include "File.hpp"
 #include "CommentRemover.h"
 #include "ClassRemover.h"
+#include "StructRemover.h"
 #define TEST
 #ifndef TEST
 struct ClassParser
@@ -928,24 +929,13 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-auto file = File::ReadFile("DBingoCard.h");
+auto file = File::ReadFile("DBingoCards.h");
 //File::WriteToFile("Test.txt", file);
 CommentRemover commentRemover;
 ClassRemover classRemover;
+StructRemover structRemover;
 auto comments = commentRemover.ParseLines(file);
-auto classes = classRemover.ParseLines(file);
-
-for (const auto& classE : classes)
-{
-    std::cout << "Class: " << std::endl;
-    for (const auto& line : classE)
-    {
-        std::cout << line << std::endl;
-    }
-}
-
-//File::WriteToFile("Test.txt", comments[0]);
-
+auto classes = structRemover.ParseLines(file);
 #endif
 
 

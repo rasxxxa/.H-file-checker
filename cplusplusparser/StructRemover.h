@@ -1,6 +1,6 @@
 #pragma once
 #include "ParserType.h"
-class EnumRemover final:
+class StructRemover final:
     public ParserType
 {
 public:

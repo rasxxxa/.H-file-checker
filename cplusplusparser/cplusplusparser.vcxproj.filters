@@ -54,6 +54,9 @@
     <ClCompile Include="AdditionalFilesHelper.ixx">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="StructRemover.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Analyzer.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VariableRemover.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StructRemover.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
