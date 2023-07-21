@@ -10,6 +10,7 @@
 #include <map>
 #include "File.hpp"
 #include "HFileParser.h"
+#include "CPPFileParser.h"
 import AdditionalFilesHelper;
 #define TEST
 #ifndef TEST
@@ -928,11 +929,9 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-auto file = File::ReadFile("DBingoCard.h");
+auto file = File::ReadFile("DBingoCard.cpp");
 //File::WriteToFile("Test.txt", file);
-
-HFileParser hFileParser{};
-auto result = hFileParser.ExtractFromFile(file);
+CPPFileParser cppParser{};
 #endif
 
 
