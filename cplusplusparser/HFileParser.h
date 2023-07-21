@@ -5,6 +5,6 @@ class HFileParser :
 {
 public:
     HFileParser();
-    std::unordered_map<std::string, MethodsVariableCounter> ExtractFromFile(const std::vector<std::string>&lines);
+    std::vector<MethodsVariableCounter> ExtractFromFile(const std::vector<std::string>&lines);
 };
 

@@ -6,9 +6,25 @@ export import <vector>;
 export import <regex>;
 export import <unordered_map>;
 export import <cassert>;
+export import <filesystem>;
+export import <map>;
+export import <fstream>;
+export import <string_view>;
 
 export
 {
+    struct VariableUsage
+    {
+        std::string variable;
+        size_t usage;
+    };
+
+    struct Files
+    {
+        std::string h_File;
+        std::string cpp_File;
+    };
+
     struct MethodsVariableCounter
     {
         std::set<std::string> private_methods;

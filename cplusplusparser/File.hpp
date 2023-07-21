@@ -1,7 +1,6 @@
 #pragma once
-#include <vector>
-#include <string>
-#include <fstream>
+import AdditionalFilesHelper;
+
 class File final
 {
 public:

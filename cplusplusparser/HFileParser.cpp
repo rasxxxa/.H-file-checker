@@ -10,10 +10,10 @@ HFileParser::HFileParser()
     __super::RegisterParser(std::make_shared<EmptyLinesRemover>());
 }
 
-std::unordered_map<std::string, MethodsVariableCounter> HFileParser::ExtractFromFile(const std::vector<std::string>& lines)
+std::vector<MethodsVariableCounter> HFileParser::ExtractFromFile(const std::vector<std::string>& lines)
 {
     std::vector<std::string> copy_lines = std::vector(lines);
-    std::unordered_map<std::string, MethodsVariableCounter> counter_per_class;
+    std::vector<MethodsVariableCounter> counter_per_class;
 
     __super::DoRefining(copy_lines);
 
@@ -32,7 +32,7 @@ std::unordered_map<std::string, MethodsVariableCounter> HFileParser::ExtractFrom
         method_extracter.Extract(_class, counter);
         variable_extracter.Extract(_class, counter);
         if (!counter.class_name.empty())
-            counter_per_class[counter.class_name] = counter;
+            counter_per_class.push_back(counter);
     }
 
     return counter_per_class;

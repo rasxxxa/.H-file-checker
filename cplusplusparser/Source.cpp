@@ -1,17 +1,6 @@
 #include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <set>
-#include <stack>
-#include <regex>
-#include <unordered_map>
-#include <filesystem>
-#include <map>
+#include "Analyzer.h"
 #include "File.hpp"
-#include "HFileParser.h"
-#include "CPPFileParser.h"
-import AdditionalFilesHelper;
 #define TEST
 #ifndef TEST
 struct ClassParser
@@ -929,9 +918,9 @@ int main(int argc, const char** argv)
 
     return 0;
 #else
-auto file = File::ReadFile("DBingoCard.cpp");
-//File::WriteToFile("Test.txt", file);
-CPPFileParser cppParser{};
+
+Analyzer analizer("D:\\magicnhd\\BiCa53G\\");
+analizer.Analize();
 #endif
 
 
