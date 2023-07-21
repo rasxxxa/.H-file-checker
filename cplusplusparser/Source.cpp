@@ -9,15 +9,7 @@
 #include <filesystem>
 #include <map>
 #include "File.hpp"
-#include "CommentRemover.h"
-#include "ClassRemover.h"
-#include "ClassNameExtracter.h"
-#include "EmptyLinesRemover.h"
-#include "StructRemover.h"
-#include "EnumRemover.h"
-#include "VariableExtracter.h"
-#include "MethodExtracter.h"
-#include "NamespaceRemover.h"
+#include "HFileParser.h"
 import AdditionalFilesHelper;
 #define TEST
 #ifndef TEST
@@ -938,40 +930,9 @@ int main(int argc, const char** argv)
 #else
 auto file = File::ReadFile("DBingoCard.h");
 //File::WriteToFile("Test.txt", file);
-CommentRemover commentRemover;
-ClassRemover classRemover;
-StructRemover structRemover;
-EnumRemover enumRemover;
-NamespaceRemover namespaceRemover;
-EmptyLinesRemover linesRemvoer;
-MethodExtracter extracter;
-auto comments = commentRemover.ParseLines(file);
-auto withoutEmptyLines = linesRemvoer.ParseLines(file);
-auto enums = enumRemover.ParseLines(file);
-auto classes = classRemover.ParseLines(file);
-ClassNameExtracter extraxter;
-MethodsVariableCounter counter;
 
-for (auto& classe : classes)
-{
-    extraxter.Extract(classe, counter);
-    std::cout << counter.class_name << std::endl;
-}
-
-
-//auto nrem = classRemover.ParseLines(file);
-//
-//MethodsVariableCounter counter;
-//extracter.Extract(classes[0], counter);
-//
-//VariableExtracter extrac;
-//extrac.Extract(classes[0], counter);
-//
-//for (auto lines : file)
-//{
-//    std::cout << lines << std::endl;
-//}
-
+HFileParser hFileParser{};
+auto result = hFileParser.ExtractFromFile(file);
 #endif
 
 
