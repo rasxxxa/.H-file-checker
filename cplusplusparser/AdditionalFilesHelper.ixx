@@ -1,6 +1,7 @@
 export module AdditionalFilesHelper;
 
 export import <string>;
+export import <iostream>;
 export import <set>;
 export import <vector>;
 export import <regex>;
@@ -10,6 +11,8 @@ export import <filesystem>;
 export import <map>;
 export import <fstream>;
 export import <string_view>;
+export import <algorithm>;
+export import <sstream>;
 
 export
 {

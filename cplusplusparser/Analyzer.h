@@ -20,8 +20,8 @@ private:
 	std::vector<Files> m_files_to_check;
 	std::filesystem::path m_path;
 	std::unordered_map<std::string, std::vector <std::string>> m_allFiles;
-	std::unordered_map<std::string, std::unordered_map<std::string, VariableOccurrenceReadWrite>> m_usage_per_file_variables;
-	std::unordered_map<std::string, std::unordered_map<std::string, int>> m_occurence_per_file_variables;
-	std::unordered_map<std::string, std::unordered_map<std::string, int>> m_usage_per_file_methods;
+	std::unordered_map<std::string, std::unordered_map<std::string, std::unordered_map<std::string, VariableOccurrenceReadWrite>>> m_usage_per_file_variables;
+	std::unordered_map<std::string, std::unordered_map<std::string, std::unordered_map<std::string, int>>> m_occurence_per_file_variables;
+	std::unordered_map<std::string, std::unordered_map<std::string, std::unordered_map<std::string, int>>> m_usage_per_file_methods;
 };
 

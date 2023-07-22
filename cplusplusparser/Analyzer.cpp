@@ -54,21 +54,88 @@ void Analyzer::Analize()
         {
             auto occurrenceVarsReadWrite = CheckVariablesForUsage(parser.unique_variables, m_allFiles[check_all_parsers.first]);
             for (const auto& variable : occurrenceVarsReadWrite)
-                m_usage_per_file_variables[check_all_parsers.first][parser.class_name] = variable.second;
+                m_usage_per_file_variables[check_all_parsers.first][parser.class_name][variable.first] = variable.second;
 
             auto occurrence = GetOccurenceOfVariables(parser, m_allFiles[check_all_parsers.first]);
             for (const auto& variable : occurrence)
-                m_occurence_per_file_variables[check_all_parsers.first][parser.class_name] = variable.second;
+                m_occurence_per_file_variables[check_all_parsers.first][parser.class_name][variable.first] = variable.second;
 
             auto usageMethods = GetMethodOcurence(parser, m_allFiles, check_all_parsers.first);
             for (const auto& method : usageMethods)
-                m_usage_per_file_methods[check_all_parsers.first][parser.class_name] = method.second;
+                m_usage_per_file_methods[check_all_parsers.first][parser.class_name][method.first] = method.second;
         }
     }
 }
 
 void Analyzer::PrintResults(const std::string& path)
 {
+    std::vector<std::string> lines_to_print;
+    for (const auto& file : m_allFiles)
+    {
+        std::stringstream file_stream;
+        if (m_usage_per_file_variables.contains(file.first) &&
+            m_occurence_per_file_variables.contains(file.first) &&
+            m_usage_per_file_methods.contains(file.first))
+        {
+            file_stream << "File: " << file.first << std::endl;
+            for (const auto& _class : m_usage_per_file_variables.at(file.first))
+            {
+                std::vector<VariableUsage> variables_usages;
+                for (const auto& variable : _class.second)
+                {
+                    VariableUsage usage{};
+                    usage.usage = m_occurence_per_file_variables[file.first][_class.first][variable.first];
+                    usage.variable = variable.first;
+                    variables_usages.push_back(usage);
+                }
+
+                std::ranges::sort(variables_usages, [](const auto& usage1, const auto& usage2) {
+                    
+                    return usage1.usage < usage2.usage;
+                    
+                    });
+
+                file_stream << "\tClass: " << std::endl;
+                file_stream << "\t" << _class.first << std::endl << std::endl;
+                file_stream << "\tVariable usage: " << std::endl;
+                for (const auto& variable : variables_usages)
+                {
+                    file_stream << "\t\tVariable: " << variable.variable << " occurrence: " << variable.usage << std::endl;
+                    file_stream << "\t\tRead times: " << m_usage_per_file_variables[file.first][_class.first][variable.variable].read_times << std::endl;
+                    file_stream << "\t\tWrite times: " << m_usage_per_file_variables[file.first][_class.first][variable.variable].write_times << std::endl;
+                    file_stream << "\t\tCalling method times: " << m_usage_per_file_variables[file.first][_class.first][variable.variable].method_times << std::endl;
+                }
+                file_stream << std::endl << std::endl;
+
+                std::vector<VariableUsage> method_usage;
+
+                for (const auto& method : m_usage_per_file_methods.at(file.first).at(_class.first))
+                {
+                    VariableUsage usage{};
+                    usage.usage = method.second;
+                    usage.variable = method.first;
+                    method_usage.push_back(usage);
+                }
+
+                std::ranges::sort(method_usage, [](const auto& usage1, const auto& usage2) {
+
+                    return usage1.usage < usage2.usage;
+
+                    });
+
+                file_stream << "\tMethods usage: " << std::endl;
+
+                for (const auto& method : method_usage)
+                {
+                    file_stream << "\t\tMethod: " << method.variable << ", occurrence: " << method.usage << std::endl;
+                }
+                file_stream << std::endl << std::endl;
+            }
+            lines_to_print.push_back(file_stream.str());
+        }
+    }
+
+    File::WriteToFile(path, lines_to_print);
 
 }
 
