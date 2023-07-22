@@ -1,0 +1,167 @@
+\doxysection{CDBingo\+Card Class Reference}
+\hypertarget{class_c_d_bingo_card}{}\label{class_c_d_bingo_card}\index{CDBingoCard@{CDBingoCard}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_d_bingo_card_a5751f697591b2311ea7159bb0d5b4fb3}\label{class_c_d_bingo_card_a5751f697591b2311ea7159bb0d5b4fb3} 
+enum \{ {\bfseries Number\+Of\+Card\+Rows} =3
+, {\bfseries Number\+Of\+Card\+Columns} =5
+, {\bfseries Number\+Of\+Card\+Elements} =Number\+Of\+Card\+Rows\texorpdfstring{$\ast$}{*}\+Number\+Of\+Card\+Columns
+ \}
+\item 
+\Hypertarget{class_c_d_bingo_card_a9d6376cea3a69c84ebea88e7a1b2c9f5}\label{class_c_d_bingo_card_a9d6376cea3a69c84ebea88e7a1b2c9f5} 
+enum {\bfseries Card\+States} \{ {\bfseries Inactive}
+, {\bfseries Active}
+, {\bfseries Numberof\+Card\+States}
+ \}
+\item 
+\Hypertarget{class_c_d_bingo_card_a41297e1c458772992bddd92e421487da}\label{class_c_d_bingo_card_a41297e1c458772992bddd92e421487da} 
+enum {\bfseries Element\+States} \{ \newline
+{\bfseries Element\+None} =0
+, {\bfseries Element\+Mark}
+, {\bfseries Element\+Hit}
+, {\bfseries Element\+Win}
+, \newline
+{\bfseries Element\+Expected}
+, {\bfseries Number\+Of\+Element\+States}
+ \}
+\item 
+\Hypertarget{class_c_d_bingo_card_a9abaaf18c502d96da4b067523c05fec9}\label{class_c_d_bingo_card_a9abaaf18c502d96da4b067523c05fec9} 
+enum {\bfseries Wins} \{ \newline
+{\bfseries No\+Win} = 0
+, {\bfseries Corners}
+, {\bfseries One\+Line1}
+, {\bfseries One\+Line2}
+, \newline
+{\bfseries One\+Line3}
+, {\bfseries Single\+V1}
+, {\bfseries Single\+V2}
+, {\bfseries Plus}
+, \newline
+{\bfseries Triangle1}
+, {\bfseries Triangle2}
+, {\bfseries Double\+Plus}
+, {\bfseries Candy\+Cane1}
+, \newline
+{\bfseries Candy\+Cane2}
+, {\bfseries Double\+Line1}
+, {\bfseries Double\+Line2}
+, {\bfseries Double\+Line3}
+, \newline
+{\bfseries Lollipop}
+, {\bfseries Bonus1}
+, {\bfseries Bonus2}
+, {\bfseries Bingo}
+, \newline
+{\bfseries Number\+Of\+Win\+Pattern}
+ \}
+\item 
+\Hypertarget{class_c_d_bingo_card_a17248fff58aa76910755f3041990c09d}\label{class_c_d_bingo_card_a17248fff58aa76910755f3041990c09d} 
+enum \{ {\bfseries Number\+Of\+Extra\+Win\+Pattern} = 2 + 1 + 1 + 1 + 2
+ \}
+\item 
+\Hypertarget{class_c_d_bingo_card_ac4e5923460e704a46b6d1638d84ae17a}\label{class_c_d_bingo_card_ac4e5923460e704a46b6d1638d84ae17a} 
+enum \{ {\bfseries First\+Game\+Win} =Corners
+, {\bfseries Last\+Game\+Win} =Bingo
+ \}
+\item 
+\Hypertarget{class_c_d_bingo_card_a4c3c715aaf299537188c4253e3f055c8}\label{class_c_d_bingo_card_a4c3c715aaf299537188c4253e3f055c8} 
+enum \{ {\bfseries Different\+Win\+Pattern} =Number\+Of\+Win\+Pattern-\/\+Number\+Of\+Extra\+Win\+Pattern
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_d_bingo_card_ac064a434b4b2e779e00c436d7fe9975b}\label{class_c_d_bingo_card_ac064a434b4b2e779e00c436d7fe9975b} 
+void {\bfseries Set} (uchar auc\+Number\mbox{[}Number\+Of\+Card\+Elements\mbox{]}, const std\+::string \&str\+Name(), uchar uc\+Card\+Id())
+\item 
+\Hypertarget{class_c_d_bingo_card_a10dd17e3a0b54f6a9097a8f4fd08ee3e}\label{class_c_d_bingo_card_a10dd17e3a0b54f6a9097a8f4fd08ee3e} 
+void {\bfseries Set\+State} (uchar uc\+State)
+\item 
+\Hypertarget{class_c_d_bingo_card_a500f9d257d074a5118abc748be4d7ceb}\label{class_c_d_bingo_card_a500f9d257d074a5118abc748be4d7ceb} 
+uchar {\bfseries Get\+State} (void) const
+\item 
+\Hypertarget{class_c_d_bingo_card_a6aa57044be20f25dcfb61f2a4abda0e5}\label{class_c_d_bingo_card_a6aa57044be20f25dcfb61f2a4abda0e5} 
+std\+::string {\bfseries Get\+Name} () const
+\item 
+\Hypertarget{class_c_d_bingo_card_aad914777cdc533036b3d707907ca81ca}\label{class_c_d_bingo_card_aad914777cdc533036b3d707907ca81ca} 
+uchar {\bfseries Get\+Id} (void) const
+\item 
+\Hypertarget{class_c_d_bingo_card_a707dc906188f098a27b63f4dc8ef8565}\label{class_c_d_bingo_card_a707dc906188f098a27b63f4dc8ef8565} 
+void {\bfseries Set\+Bet} (CGame\+Value gv\+Bet)
+\item 
+\Hypertarget{class_c_d_bingo_card_a773ef697eeb00104d828b37fdc7db200}\label{class_c_d_bingo_card_a773ef697eeb00104d828b37fdc7db200} 
+CGame\+Value {\bfseries Get\+Bet} (void) const
+\item 
+\Hypertarget{class_c_d_bingo_card_a846c9a989a5b6e73b0eff2cd9b88ccc3}\label{class_c_d_bingo_card_a846c9a989a5b6e73b0eff2cd9b88ccc3} 
+CWin\+Value {\bfseries Get\+Win} (bool b\+Bingo\+In30) const
+\item 
+\Hypertarget{class_c_d_bingo_card_afbafe11791639aad6afeb931ab7dd9fa}\label{class_c_d_bingo_card_afbafe11791639aad6afeb931ab7dd9fa} 
+void {\bfseries Reset} (void)
+\item 
+\Hypertarget{class_c_d_bingo_card_ad0a143f0bbed06ece20ef8bfbb1cff01}\label{class_c_d_bingo_card_ad0a143f0bbed06ece20ef8bfbb1cff01} 
+bool {\bfseries Number\+Exists} (uchar uc\+Number) const
+\item 
+\Hypertarget{class_c_d_bingo_card_afad4ca37bbe7e6ba1621f2963964c495}\label{class_c_d_bingo_card_afad4ca37bbe7e6ba1621f2963964c495} 
+ushort {\bfseries Get\+Numberfor\+Pos} (uchar uc\+Pos) const
+\item 
+\Hypertarget{class_c_d_bingo_card_ab31b7f857378b14771ed7f4779a442b9}\label{class_c_d_bingo_card_ab31b7f857378b14771ed7f4779a442b9} 
+uchar {\bfseries Get\+Posfor\+Number} (uchar uc\+Number) const
+\item 
+\Hypertarget{class_c_d_bingo_card_abc02ed1cb54c808aea2e94315fc6e96a}\label{class_c_d_bingo_card_abc02ed1cb54c808aea2e94315fc6e96a} 
+bool {\bfseries Set\+Element\+State} (uchar uc\+Number, uchar uc\+Mark\+Type, uchar uc\+Drawn\+Pos)
+\item 
+\Hypertarget{class_c_d_bingo_card_ab9eead82b3ef3e789201ebd6b53661ba}\label{class_c_d_bingo_card_ab9eead82b3ef3e789201ebd6b53661ba} 
+uchar {\bfseries Get\+Element\+State} (uchar uc\+Number) const
+\item 
+\Hypertarget{class_c_d_bingo_card_a89df365c0b82abfcb64feac64b34d50c}\label{class_c_d_bingo_card_a89df365c0b82abfcb64feac64b34d50c} 
+bool {\bfseries Get\+Expected\+Elements} (ulong aul\+Expected\+Win\mbox{[}CDBingo\+Card\+::\+Number\+Of\+Card\+Elements\mbox{]}) const
+\item 
+\Hypertarget{class_c_d_bingo_card_a6b364297615d612d15584228628fff50}\label{class_c_d_bingo_card_a6b364297615d612d15584228628fff50} 
+bool {\bfseries Get\+Expected\+Elements\+For\+Pattern} (ulong aul\+Expected\+Elements\mbox{[}CDBingo\+Card\+::\+Number\+Of\+Card\+Elements\mbox{]}, ulong ul\+Pattern) const
+\item 
+\Hypertarget{class_c_d_bingo_card_a4ea0f92e2af7995d137107af14a14080}\label{class_c_d_bingo_card_a4ea0f92e2af7995d137107af14a14080} 
+void {\bfseries Set\+Expected\+Wins} (ulong aul\+Expected\+Win\mbox{[}CDBingo\+Card\+::\+Number\+Of\+Card\+Elements\mbox{]}=nullptr)
+\item 
+\Hypertarget{class_c_d_bingo_card_abc6b869c5cc5b4a718458ff765660df2}\label{class_c_d_bingo_card_abc6b869c5cc5b4a718458ff765660df2} 
+ulong {\bfseries Get\+Expected\+Win} (uchar uc\+Pos) const
+\item 
+\Hypertarget{class_c_d_bingo_card_a62a2401f1b0b0de325c45808e33eb74a}\label{class_c_d_bingo_card_a62a2401f1b0b0de325c45808e33eb74a} 
+bool {\bfseries Evaluate\+Win} (ulong \&ul\+Win\+Pattern) const
+\item 
+\Hypertarget{class_c_d_bingo_card_a5ab133139eea44beb45e97be9bb66537}\label{class_c_d_bingo_card_a5ab133139eea44beb45e97be9bb66537} 
+bool {\bfseries Evaluate\+Win\+For\+Pattern} (ulong \&ul\+Win\+Pattern, ulong ul\+Pattern) const
+\item 
+\Hypertarget{class_c_d_bingo_card_af53d8741a452c532d7b6b37373d87e3f}\label{class_c_d_bingo_card_af53d8741a452c532d7b6b37373d87e3f} 
+bool {\bfseries Is\+Bingo\+With\+In30\+Possible} () const
+\item 
+\Hypertarget{class_c_d_bingo_card_a8178e69f683af8abbc6e063a5793668e}\label{class_c_d_bingo_card_a8178e69f683af8abbc6e063a5793668e} 
+uchar {\bfseries Get\+Drawn\+Ball\+For\+Bingo} () const
+\item 
+\Hypertarget{class_c_d_bingo_card_a9dd60834a3eed05c3fe903e68434f175}\label{class_c_d_bingo_card_a9dd60834a3eed05c3fe903e68434f175} 
+void {\bfseries Set\+Current\+Wins} (ulong ul\+Win\+Pattern)
+\item 
+\Hypertarget{class_c_d_bingo_card_a18a91c28581827ffc5f85ed14240e1d0}\label{class_c_d_bingo_card_a18a91c28581827ffc5f85ed14240e1d0} 
+ulong {\bfseries Get\+Current\+Wins} (void) const
+\item 
+\Hypertarget{class_c_d_bingo_card_a90c12f13806c278a2a31e786d10f2836}\label{class_c_d_bingo_card_a90c12f13806c278a2a31e786d10f2836} 
+void {\bfseries Get\+Expected\+Winsfor\+Pattern} (ulong \&ul\+Max\+Win, ulong \&ulpossible\+Win, ulong ul\+Pattern) const
+\item 
+\Hypertarget{class_c_d_bingo_card_a1f6278b61f2a76bda85238ce6546f690}\label{class_c_d_bingo_card_a1f6278b61f2a76bda85238ce6546f690} 
+ulong {\bfseries Get\+Pattern} (uchar uc\+Drawn, uchar auc\+Drawn\mbox{[}$\,$\mbox{]}) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_c_d_bingo_card_afc52f9ad5eb41384e2a2367477742b4d}\label{class_c_d_bingo_card_afc52f9ad5eb41384e2a2367477742b4d} 
+static void {\bfseries Sort\+Card\+Elements} (uchar auc\+Number\mbox{[}CDBingo\+Card\+::\+Number\+Of\+Card\+Elements\mbox{]})
+\item 
+\Hypertarget{class_c_d_bingo_card_a447cf8b21ec033dfbd189910db8901f9}\label{class_c_d_bingo_card_a447cf8b21ec033dfbd189910db8901f9} 
+static int {\bfseries Compare\+Numbers} (const void \texorpdfstring{$\ast$}{*}arg1, const void \texorpdfstring{$\ast$}{*}arg2)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+DBingo\+Card.\+h\item 
+DBingo\+Card.\+cpp\end{DoxyCompactItemize}

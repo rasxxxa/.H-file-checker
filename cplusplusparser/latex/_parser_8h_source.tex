@@ -1,0 +1,27 @@
+\doxysection{Parser.\+h}
+\hypertarget{_parser_8h_source}{}\label{_parser_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{keyword}{import}\ AdditionalFilesHelper;}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}ParserType.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}CommentRemover.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}EnumRemover.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}NamespaceRemover.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}EmptyLinesRemover.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}StructRemover.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}ClassRemover.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}ClassNameExtracter.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}VariableExtracter.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}MethodExtracter.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_parser}{Parser}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ DoRefining(std::vector<std::string>\&\ lines);}
+\DoxyCodeLine{00018\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ RegisterParser(\textcolor{keyword}{const}\ std::shared\_ptr<ParserType>\&\ parser);}
+\DoxyCodeLine{00020\ \ \ \ \ std::vector<std::shared\_ptr<ParserType>>\ parsers;}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ }
+
+\end{DoxyCode}
