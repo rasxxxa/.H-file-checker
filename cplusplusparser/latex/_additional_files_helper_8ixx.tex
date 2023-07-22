@@ -1,0 +1,144 @@
+\doxysection{Additional\+Files\+Helper.\+ixx File Reference}
+\hypertarget{_additional_files_helper_8ixx}{}\label{_additional_files_helper_8ixx}\index{AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_files}{Files}}
+\item 
+struct \mbox{\hyperlink{struct_methods_variable_counter}{Methods\+Variable\+Counter}}
+\item 
+struct \mbox{\hyperlink{struct_variable_occurrence_read_write}{Variable\+Occurrence\+Read\+Write}}
+\item 
+struct \mbox{\hyperlink{struct_parenthesis}{Parenthesis}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Concepts}
+\begin{DoxyCompactItemize}
+\item 
+concept \mbox{\hyperlink{concept_is_vector_or_array}{Is\+Vector\+Or\+Array}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{_additional_files_helper_8ixx_a53d6f8ccb0015ea020228de41cfd2162}{Visibility}} \{ \mbox{\hyperlink{_additional_files_helper_8ixx_a53d6f8ccb0015ea020228de41cfd2162a47f9082fc380ca62d531096aa1d110f1}{Private}}
+, \mbox{\hyperlink{_additional_files_helper_8ixx_a53d6f8ccb0015ea020228de41cfd2162a3d067bedfe2f4677470dd6ccf64d05ed}{Public}}
+ \}
+\item 
+enum class \mbox{\hyperlink{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4d}{Type\+Of\+Encapsulation}} \{ \mbox{\hyperlink{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4da886ef5dbd655a6c97726d7091c6b173e}{Struct}}
+, \mbox{\hyperlink{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4da9bd81329febf6efe22788e03ddeaf0af}{Class}}
+, \mbox{\hyperlink{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4dab3ba0fe968ce39dcfc6fe8cc0f1b02da}{Namespace}}
+, \mbox{\hyperlink{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4dacf20423ed48998082c20099488a0917c}{Enum}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_additional_files_helper_8ixx_a1198c2a610bc9a7d6da4901bf1fa066a}{Is\+Only\+Spaces}} (const std\+::string \&line)
+\item 
+{\footnotesize template$<$typename Func , typename In , typename... Args$>$ }\\constexpr bool \mbox{\hyperlink{_additional_files_helper_8ixx_a5b2aa3ec16b42e809ae453da2cd3d47a}{Run\+Equal\+Tests}} (In arg\+Test, Func func, Args... args)
+\item 
+\mbox{\hyperlink{struct_parenthesis}{Parenthesis}} \mbox{\hyperlink{_additional_files_helper_8ixx_a60221f9e31eb9859a1dad5c075c37e79}{Count\+Parenthesis}} (const std\+::string \&line)
+\item 
+bool \mbox{\hyperlink{_additional_files_helper_8ixx_a24915bf6ac230c3aacf50201221836ba}{Is\+Element}} (const std\+::string \&line, \mbox{\hyperlink{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4d}{Type\+Of\+Encapsulation}} encapsulation)
+\item 
+std\+::vector$<$ std\+::vector$<$ std\+::string $>$ $>$ \mbox{\hyperlink{_additional_files_helper_8ixx_ac7bb9fd2a57ea65a0005cd4738ee03f8}{Find\+All\+Encapsulations}} (\mbox{\hyperlink{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4d}{Type\+Of\+Encapsulation}} encapsulation, std\+::vector$<$ std\+::string $>$ \&lines)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} module \mbox{\hyperlink{_additional_files_helper_8ixx_a49eace26d46a67df1b4f6399c25477ba}{Additional\+Files\+Helper}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_ab5baef3b242a92259ce3f3db76a2b7ae}{import$<$ string $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_a71466427a3e39423ac8ea6342ed6fc75}{import$<$ iostream $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_a16433784fc4f3aa3da407d53986b9307}{import$<$ set $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_aea611970908b7da92130fcbb72e2b56c}{import$<$ vector $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_a56b153f0f45cb6ded9e3eeb9bba50628}{import$<$ regex $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_a1a5eb5746b6b9e6608486821dfa52751}{import$<$ unordered\+\_\+map $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_a215520fa540d2874e2192800cd8e3eed}{import$<$ cassert $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_a1f9b78b36f5676c7970e7135e363e6b4}{import$<$ filesystem $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_a5f04318aff1776ec3dfe59004342c011}{import$<$ map $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_ab0a65c10c3538375f50c38f2e996da42}{import$<$ fstream $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_adef3e5f7ba615d97b5a52040ec9ca525}{import$<$ string\+\_\+view $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_a1d7eb4aad7f1cda33db7ab9d2c8ab7e6}{import$<$ algorithm $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}} \mbox{\hyperlink{_additional_files_helper_8ixx_a4b55ecffc3f04a80775cc24ed6beb59d}{import$<$ sstream $>$}}
+\item 
+\mbox{\hyperlink{_additional_files_helper_8ixx_af44e2d3afd4e0e4d03f637dbb2bce3cd}{export}}
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4d}{Type\+Of\+Encapsulation}}, const std\+::string $>$ \mbox{\hyperlink{_additional_files_helper_8ixx_ab6143d74ed41497e940ece83e4b0ab1d}{mapped\+\_\+encapsulation}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4d}\label{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4d} 
+\index{AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}!TypeOfEncapsulation@{TypeOfEncapsulation}}
+\index{TypeOfEncapsulation@{TypeOfEncapsulation}!AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}}
+\doxysubsubsection{\texorpdfstring{TypeOfEncapsulation}{TypeOfEncapsulation}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4d}{Type\+Of\+Encapsulation}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Struct@{Struct}!AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}}\index{AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}!Struct@{Struct}}}\Hypertarget{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4da886ef5dbd655a6c97726d7091c6b173e}\label{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4da886ef5dbd655a6c97726d7091c6b173e} 
+Struct&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Class@{Class}!AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}}\index{AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}!Class@{Class}}}\Hypertarget{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4da9bd81329febf6efe22788e03ddeaf0af}\label{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4da9bd81329febf6efe22788e03ddeaf0af} 
+Class&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Namespace@{Namespace}!AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}}\index{AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}!Namespace@{Namespace}}}\Hypertarget{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4dab3ba0fe968ce39dcfc6fe8cc0f1b02da}\label{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4dab3ba0fe968ce39dcfc6fe8cc0f1b02da} 
+Namespace&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Enum@{Enum}!AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}}\index{AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}!Enum@{Enum}}}\Hypertarget{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4dacf20423ed48998082c20099488a0917c}\label{_additional_files_helper_8ixx_a807c3446b04335c245eec4e6ac932a4dacf20423ed48998082c20099488a0917c} 
+Enum&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_additional_files_helper_8ixx_source_l00063}{63}} of file \mbox{\hyperlink{_additional_files_helper_8ixx_source}{Additional\+Files\+Helper.\+ixx}}.
+
+\Hypertarget{_additional_files_helper_8ixx_a53d6f8ccb0015ea020228de41cfd2162}\label{_additional_files_helper_8ixx_a53d6f8ccb0015ea020228de41cfd2162} 
+\index{AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}!Visibility@{Visibility}}
+\index{Visibility@{Visibility}!AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}}
+\doxysubsubsection{\texorpdfstring{Visibility}{Visibility}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{_additional_files_helper_8ixx_a53d6f8ccb0015ea020228de41cfd2162}{Visibility}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Private@{Private}!AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}}\index{AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}!Private@{Private}}}\Hypertarget{_additional_files_helper_8ixx_a53d6f8ccb0015ea020228de41cfd2162a47f9082fc380ca62d531096aa1d110f1}\label{_additional_files_helper_8ixx_a53d6f8ccb0015ea020228de41cfd2162a47f9082fc380ca62d531096aa1d110f1} 
+Private&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Public@{Public}!AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}}\index{AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}!Public@{Public}}}\Hypertarget{_additional_files_helper_8ixx_a53d6f8ccb0015ea020228de41cfd2162a3d067bedfe2f4677470dd6ccf64d05ed}\label{_additional_files_helper_8ixx_a53d6f8ccb0015ea020228de41cfd2162a3d067bedfe2f4677470dd6ccf64d05ed} 
+Public&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_additional_files_helper_8ixx_source_l00057}{57}} of file \mbox{\hyperlink{_additional_files_helper_8ixx_source}{Additional\+Files\+Helper.\+ixx}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_additional_files_helper_8ixx_a60221f9e31eb9859a1dad5c075c37e79}\label{_additional_files_helper_8ixx_a60221f9e31eb9859a1dad5c075c37e79} 
+\index{AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}!CountParenthesis@{CountParenthesis}}
+\index{CountParenthesis@{CountParenthesis}!AdditionalFilesHelper.ixx@{AdditionalFilesHelper.ixx}}
+\doxysubsubsection{\texorpdfstring{CountParenthesis()}{CountParenthesis()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_parenthesis}{Parenthesis}} Count\+Parenthesis (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{line }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_additional_files_helper_8ixx_source_l00116}{116}} of file \mbox{\hyperlink{_additional_files_helper_8ixx_source}{Additional\+Files\+Helper.\+ixx}}.
+
+Here is the caller graph for this function\+:

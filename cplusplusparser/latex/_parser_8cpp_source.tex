@@ -1,0 +1,17 @@
+\doxysection{Parser.\+cpp}
+\hypertarget{_parser_8cpp_source}{}\label{_parser_8cpp_source}\mbox{\hyperlink{_parser_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_parser_8h}{Parser.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00003}\mbox{\hyperlink{class_parser_a151543e7f1ff4cb1aeba740c8d43b0a2}{00003}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_parser_a151543e7f1ff4cb1aeba740c8d43b0a2}{Parser::RegisterParser}}(\textcolor{keyword}{const}\ std::shared\_ptr<ParserType>\&\ parser)}
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00005}00005\ \ \ \ \ \mbox{\hyperlink{class_parser_a4b561aaf9c3da0d89460fb20af17ffbf}{parsers}}.push\_back(parser);}
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00006}00006\ \}}
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00008}\mbox{\hyperlink{class_parser_ad46c79d53129c82c7185567ffe6610da}{00008}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_parser_ad46c79d53129c82c7185567ffe6610da}{Parser::DoRefining}}(std::vector<std::string>\&\ lines)}
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ parser\ :\ \mbox{\hyperlink{class_parser_a4b561aaf9c3da0d89460fb20af17ffbf}{parsers}})}
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ parser-\/>ParseLines(lines);}
+\DoxyCodeLine{\Hypertarget{_parser_8cpp_source_l00012}00012\ \}}
+
+\end{DoxyCode}

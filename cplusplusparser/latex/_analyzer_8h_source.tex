@@ -1,0 +1,32 @@
+\doxysection{Analyzer.\+h}
+\hypertarget{_analyzer_8h_source}{}\label{_analyzer_8h_source}\mbox{\hyperlink{_analyzer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00002}\mbox{\hyperlink{_analyzer_8h_a40abdfe0a834ed826d3dbceb5fa90620}{00002}}\ \textcolor{keyword}{import}\ \mbox{\hyperlink{_analyzer_8h_a40abdfe0a834ed826d3dbceb5fa90620}{AdditionalFilesHelper}};}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_file_8hpp}{File.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_c_p_p_file_parser_8h}{CPPFileParser.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_h_file_parser_8h}{HFileParser.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00007}\mbox{\hyperlink{class_analyzer}{00007}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_analyzer}{Analyzer}}\ final}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00008}00008\ \{}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00009}00009\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00010}00010\ \ \ \ \ \mbox{\hyperlink{class_analyzer}{Analyzer}}(\textcolor{keyword}{const}\ std::string\&\ path\ =\ \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_analyzer_a4bf545b0910c4ecc85f87553b4cff1b1}{Analize}}();}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_analyzer_a7712bb19d5670cfadb501b0a7407e6e4}{PrintResults}}(\textcolor{keyword}{const}\ std::string\&\ path\ =\ \textcolor{stringliteral}{"{}UnusedVariables.txt"{}});}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00013}00013\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00014}00014\ \ \ \ \ std::unordered\_map<std::string,\ int>\ GetOccurenceOfVariables(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_methods_variable_counter}{MethodsVariableCounter}}\&\ parser,\ \textcolor{keyword}{const}\ std::vector<std::string>\&\ lines);}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00015}00015\ \ \ \ \ std::unordered\_map<std::string,\ VariableOccurrenceReadWrite>\ CheckVariablesForUsage(\textcolor{keyword}{const}\ std::set<std::string>\&\ variables,\ \textcolor{keyword}{const}\ std::vector<std::string>\&\ sourceFile);}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00016}00016\ \ \ \ \ std::unordered\_map<std::string,\ int>\ GetMethodOcurence(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_methods_variable_counter}{MethodsVariableCounter}}\&\ parser,\ \textcolor{keyword}{const}\ std::unordered\_map<std::string,\ std::vector<std::string>>\&\ files,\ \textcolor{keyword}{const}\ std::string\&\ classForParser);}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00017}00017\ \ \ \ \ \mbox{\hyperlink{class_c_p_p_file_parser}{CPPFileParser}}\ m\_cppParser;}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00018}00018\ \ \ \ \ \mbox{\hyperlink{class_h_file_parser}{HFileParser}}\ m\_hParser;}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00019}00019\ \ \ \ \ std::map<std::string,\ std::vector<MethodsVariableCounter>>\ m\_mapped\_parsers;}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00020}00020\ \ \ \ \ std::vector<Files>\ m\_files\_to\_check;}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00021}00021\ \ \ \ \ std::filesystem::path\ m\_path;}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00022}00022\ \ \ \ \ std::unordered\_map<std::string,\ std::vector\ <std::string>>\ m\_allFiles;}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00023}00023\ \ \ \ \ std::unordered\_map<std::string,\ std::unordered\_map<std::string,\ std::unordered\_map<std::string,\ VariableOccurrenceReadWrite>>>\ m\_usage\_per\_file\_variables;}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00024}00024\ \ \ \ \ std::unordered\_map<std::string,\ std::unordered\_map<std::string,\ std::unordered\_map<std::string,\ int>>>\ m\_occurence\_per\_file\_variables;}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00025}00025\ \ \ \ \ std::unordered\_map<std::string,\ std::unordered\_map<std::string,\ std::unordered\_map<std::string,\ int>>>\ m\_usage\_per\_file\_methods;}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00026}00026\ \};}
+\DoxyCodeLine{\Hypertarget{_analyzer_8h_source_l00027}00027\ }
+
+\end{DoxyCode}

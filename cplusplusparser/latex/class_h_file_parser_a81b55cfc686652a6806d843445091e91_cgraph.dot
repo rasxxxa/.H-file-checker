@@ -1,0 +1,24 @@
+digraph "HFileParser::ExtractFromFile"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="HFileParser::ExtractFromFile",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [id="edge9_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="ClassNameExtracter\l::Extract",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_class_name_extracter.html#a3fe67c2ac1e6053a7e138760ca39c41c",tooltip=" "];
+  Node2 -> Node3 [id="edge10_Node000002_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="IsElement",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_additional_files_helper_8ixx.html#a24915bf6ac230c3aacf50201221836ba",tooltip=" "];
+  Node1 -> Node4 [id="edge11_Node000001_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="MethodExtracter::Extract",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_method_extracter.html#ac7d619dc7fe9d9608054b065e3b72788",tooltip=" "];
+  Node1 -> Node5 [id="edge12_Node000001_Node000005",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="VariableExtracter::\lExtract",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_variable_extracter.html#aa77c86e4c200d45d63f3c38fe2e5a5cd",tooltip=" "];
+  Node1 -> Node6 [id="edge13_Node000001_Node000006",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="ClassRemover::ParseLines",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_class_remover.html#a4481e10269712a16058b4ef91164895e",tooltip=" "];
+  Node6 -> Node7 [id="edge14_Node000006_Node000007",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="FindAllEncapsulations",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_additional_files_helper_8ixx.html#ac7bb9fd2a57ea65a0005cd4738ee03f8",tooltip=" "];
+  Node7 -> Node8 [id="edge15_Node000007_Node000008",color="steelblue1",style="solid",tooltip=" "];
+  Node8 [id="Node000008",label="CountParenthesis",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_additional_files_helper_8ixx.html#a60221f9e31eb9859a1dad5c075c37e79",tooltip=" "];
+  Node7 -> Node3 [id="edge16_Node000007_Node000003",color="steelblue1",style="solid",tooltip=" "];
+}

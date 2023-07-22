@@ -1,0 +1,44 @@
+\doxysection{HFile\+Parser.\+cpp}
+\hypertarget{_h_file_parser_8cpp_source}{}\label{_h_file_parser_8cpp_source}\mbox{\hyperlink{_h_file_parser_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_h_file_parser_8h}{HFileParser.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00003}\mbox{\hyperlink{class_h_file_parser_adbbebf87c8910750059a8560c1360631}{00003}}\ \mbox{\hyperlink{class_h_file_parser_adbbebf87c8910750059a8560c1360631}{HFileParser::HFileParser}}()}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00005}00005\ \ \ \ \ \textcolor{comment}{//\ Order\ does\ not\ matter}}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00006}00006\ \ \ \ \ \_\_super::RegisterParser(std::make\_shared<CommentRemover>());}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00007}00007\ \ \ \ \ \_\_super::RegisterParser(std::make\_shared<NamespaceRemover>());}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00008}00008\ \ \ \ \ \_\_super::RegisterParser(std::make\_shared<EnumRemover>());}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00009}00009\ \ \ \ \ \_\_super::RegisterParser(std::make\_shared<StructRemover>());}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00010}00010\ \ \ \ \ \_\_super::RegisterParser(std::make\_shared<EmptyLinesRemover>());}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00011}00011\ \}}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00013}\mbox{\hyperlink{class_h_file_parser_a81b55cfc686652a6806d843445091e91}{00013}}\ std::vector<MethodsVariableCounter>\ \mbox{\hyperlink{class_h_file_parser_a81b55cfc686652a6806d843445091e91}{HFileParser::ExtractFromFile}}(\textcolor{keyword}{const}\ std::vector<std::string>\&\ lines)}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00014}00014\ \{}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00015}00015\ \ \ \ \ std::vector<std::string>\ copy\_lines\ =\ std::vector(lines);}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00016}00016\ \ \ \ \ std::vector<MethodsVariableCounter>\ counter\_per\_class;}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00018}00018\ \ \ \ \ \_\_super::DoRefining(copy\_lines);}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{class_class_remover}{ClassRemover}}\ class\_extracter;}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{auto}\ classes\ =\ class\_extracter.\mbox{\hyperlink{class_class_remover_a4481e10269712a16058b4ef91164895e}{ParseLines}}(copy\_lines);}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00024}00024\ \ \ \ \ \mbox{\hyperlink{class_class_name_extracter}{ClassNameExtracter}}\ class\_name\_extracter;}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00025}00025\ \ \ \ \ \mbox{\hyperlink{class_variable_extracter}{VariableExtracter}}\ variable\_extracter;}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00026}00026\ \ \ \ \ \mbox{\hyperlink{class_method_extracter}{MethodExtracter}}\ method\_extracter;}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00028}00028\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ \_class\ :\ classes)}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_methods_variable_counter}{MethodsVariableCounter}}\ counter;}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ class\_name\_extracter.\mbox{\hyperlink{class_class_name_extracter_a3fe67c2ac1e6053a7e138760ca39c41c}{Extract}}(\_class,\ counter);}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ method\_extracter.\mbox{\hyperlink{class_method_extracter_ac7d619dc7fe9d9608054b065e3b72788}{Extract}}(\_class,\ counter);}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ variable\_extracter.\mbox{\hyperlink{class_variable_extracter_aa77c86e4c200d45d63f3c38fe2e5a5cd}{Extract}}(\_class,\ counter);}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!counter.\mbox{\hyperlink{struct_methods_variable_counter_a1ee885764f2994193c9b8007abb54a42}{class\_name}}.empty())}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ counter\_per\_class.push\_back(counter);}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00036}00036\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{keywordflow}{return}\ counter\_per\_class;}
+\DoxyCodeLine{\Hypertarget{_h_file_parser_8cpp_source_l00039}00039\ \}}
+
+\end{DoxyCode}

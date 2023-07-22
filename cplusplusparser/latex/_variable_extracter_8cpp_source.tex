@@ -1,0 +1,78 @@
+\doxysection{Variable\+Extracter.\+cpp}
+\hypertarget{_variable_extracter_8cpp_source}{}\label{_variable_extracter_8cpp_source}\mbox{\hyperlink{_variable_extracter_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_variable_extracter_8h}{VariableExtracter.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00003}\mbox{\hyperlink{class_variable_extracter_aa77c86e4c200d45d63f3c38fe2e5a5cd}{00003}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_variable_extracter_aa77c86e4c200d45d63f3c38fe2e5a5cd}{VariableExtracter::Extract}}(std::vector<std::string>\&\ lines,\ \mbox{\hyperlink{struct_methods_variable_counter}{MethodsVariableCounter}}\&\ extracter)}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00005}00005\ \ \ \ \ std::vector<std::string>\ lines\_without\_variables;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00006}00006\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ line\ :\ lines)}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00007}00007\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00008}00008\ \ \ \ \ \ \ \ \ std::string\ variable;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00009}00009\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!line.contains(\textcolor{stringliteral}{"{};"{}}))}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00010}00010\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ \ \ \ \ lines\_without\_variables.push\_back(line);}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00012}00012\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isExtern\ =\ line.find(\textcolor{stringliteral}{"{}extern"{}})\ !=\ std::string::npos;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pos\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(line.find(\textcolor{stringliteral}{"{};"{}})\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ posLeft\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ posRight\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ usable\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (pos\ >=\ 0)}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line[pos]\ ==\ \textcolor{charliteral}{']'})}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (pos\ >=\ 0\ \&\&\ line[pos]\ !=\ \textcolor{charliteral}{'['})}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pos-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pos-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (line[pos]\ ==\ \textcolor{charliteral}{'\}'})}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (pos\ >=\ 0\ \&\&\ line[pos]\ !=\ \textcolor{charliteral}{'\{'})}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pos-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pos-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ posRight\ =\ pos;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (posRight\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lines\_without\_variables.push\_back(line);}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ IsAcceptableSign\ =\ [](\textcolor{keywordtype}{char}\ a)}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::isalpha(a)\ ||\ std::isdigit(a)\ ||\ a\ ==\ \textcolor{charliteral}{'\_'};}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (pos\ >=\ 0\ \&\&\ IsAcceptableSign(line[pos]))}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pos-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ substr\ =\ line.substr(pos\ +\ 1,\ posRight\ -\/\ pos);}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ extracter.\mbox{\hyperlink{struct_methods_variable_counter_a702ecf0d68e8817239f13a9c0d54abb6}{unique\_variables}}.insert(substr);}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isExtern)}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ extracter.\mbox{\hyperlink{struct_methods_variable_counter_a0cbf7145384c3c798c6435f3b55ecbed}{global\_pointer}}\ =\ substr;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ restOfLine\ =\ line.substr(0,\ pos);}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (restOfLine.back()\ -\/\ 1\ ==\ \textcolor{charliteral}{','}\ ||\ restOfLine.back()\ -\/\ 2\ ==\ \textcolor{charliteral}{','}\ ||\ restOfLine.back()\ ==\ \textcolor{charliteral}{','})}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pos\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(restOfLine.find\_last\_of(\textcolor{charliteral}{','})\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ usable\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (usable);}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00070}00070\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00071}00071\ \ \ \ \ lines\ =\ lines\_without\_variables;}
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_variable_extracter_8cpp_source_l00073}00073\ \}}
+
+\end{DoxyCode}

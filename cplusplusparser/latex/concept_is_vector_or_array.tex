@@ -1,0 +1,21 @@
+\doxysection{Is\+Vector\+Or\+Array Concept Reference}
+\hypertarget{concept_is_vector_or_array}{}\label{concept_is_vector_or_array}\index{IsVectorOrArray@{IsVectorOrArray}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{concept_is_vector_or_array}{IsVectorOrArray}}\ =\ \ \textcolor{keyword}{requires}(T\ a)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ a.begin();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ a.end();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ T::value\_type;}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_additional_files_helper_8ixx_source_l00086}{86}} of file \mbox{\hyperlink{_additional_files_helper_8ixx_source}{Additional\+Files\+Helper.\+ixx}}.
+

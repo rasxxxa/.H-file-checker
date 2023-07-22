@@ -1,0 +1,27 @@
+\doxysection{Parser.\+h}
+\hypertarget{_parser_8h_source}{}\label{_parser_8h_source}\mbox{\hyperlink{_parser_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00002}\mbox{\hyperlink{_parser_8h_a40abdfe0a834ed826d3dbceb5fa90620}{00002}}\ \textcolor{keyword}{import}\ \mbox{\hyperlink{_parser_8h_a40abdfe0a834ed826d3dbceb5fa90620}{AdditionalFilesHelper}};}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_parser_type_8h}{ParserType.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_comment_remover_8h}{CommentRemover.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_enum_remover_8h}{EnumRemover.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_namespace_remover_8h}{NamespaceRemover.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_empty_lines_remover_8h}{EmptyLinesRemover.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_struct_remover_8h}{StructRemover.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_class_remover_8h}{ClassRemover.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_class_name_extracter_8h}{ClassNameExtracter.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_variable_extracter_8h}{VariableExtracter.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_method_extracter_8h}{MethodExtracter.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00014}\mbox{\hyperlink{class_parser}{00014}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_parser}{Parser}}}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00015}00015\ \{}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00016}00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_parser_ad46c79d53129c82c7185567ffe6610da}{DoRefining}}(std::vector<std::string>\&\ lines);}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00018}00018\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00019}00019\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_parser_a151543e7f1ff4cb1aeba740c8d43b0a2}{RegisterParser}}(\textcolor{keyword}{const}\ std::shared\_ptr<ParserType>\&\ parser);}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00020}\mbox{\hyperlink{class_parser_a4b561aaf9c3da0d89460fb20af17ffbf}{00020}}\ \ \ \ \ std::vector<std::shared\_ptr<ParserType>>\ \mbox{\hyperlink{class_parser_a4b561aaf9c3da0d89460fb20af17ffbf}{parsers}};}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00021}00021\ \};}
+\DoxyCodeLine{\Hypertarget{_parser_8h_source_l00022}00022\ }
+
+\end{DoxyCode}

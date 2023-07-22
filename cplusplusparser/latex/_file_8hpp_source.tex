@@ -1,0 +1,51 @@
+\doxysection{File.\+hpp}
+\hypertarget{_file_8hpp_source}{}\label{_file_8hpp_source}\mbox{\hyperlink{_file_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00002}\mbox{\hyperlink{_file_8hpp_a40abdfe0a834ed826d3dbceb5fa90620}{00002}}\ \textcolor{keyword}{import}\ \mbox{\hyperlink{_file_8hpp_a40abdfe0a834ed826d3dbceb5fa90620}{AdditionalFilesHelper}};}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00004}\mbox{\hyperlink{class_file}{00004}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_file}{File}}\ final}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00005}00005\ \{}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00006}00006\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00007}\mbox{\hyperlink{class_file_a55f8f434e5d487a69fcd365fa4cff364}{00007}}\ \ \ \ \ \mbox{\hyperlink{class_file_a55f8f434e5d487a69fcd365fa4cff364}{File}}()\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00008}\mbox{\hyperlink{class_file_af0fcde283f7279a07b114269110e8eed}{00008}}\ \ \ \ \ \mbox{\hyperlink{class_file_af0fcde283f7279a07b114269110e8eed}{File}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_file}{File}}\&\ file)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00009}\mbox{\hyperlink{class_file_abc3011276852a2bc526270e08266ff8a}{00009}}\ \ \ \ \ \mbox{\hyperlink{class_file}{File}}\ \mbox{\hyperlink{class_file_abc3011276852a2bc526270e08266ff8a}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_file}{File}}\&\ file)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<std::string>\ \mbox{\hyperlink{class_file_a77659e1ae30fc63ee5cfabde286e9113}{ReadFile}}(\textcolor{keyword}{const}\ std::string\_view\&\ path);}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_file_a1ff47bf5368d53db9c979ac95ab91c8b}{WriteToFile}}(\textcolor{keyword}{const}\ std::string\_view\&\ path,\ \textcolor{keyword}{const}\ std::vector<std::string>\&\ line);}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00012}00012\ \};}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00016}\mbox{\hyperlink{class_file_a77659e1ae30fc63ee5cfabde286e9113}{00016}}\ \textcolor{keyword}{inline}\ std::vector<std::string>\ \mbox{\hyperlink{class_file_a77659e1ae30fc63ee5cfabde286e9113}{File::ReadFile}}(\textcolor{keyword}{const}\ std::string\_view\&\ path)}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00017}00017\ \{}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00018}00018\ \ \ \ \ std::vector<std::string>\ file;}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00019}00019\ \ \ \ \ std::ifstream\ file\_opened(path.data());}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\_opened.is\_open())}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00021}00021\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00022}00022\ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file\_opened,\ line))}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ file.push\_back(line);}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00028}00028\ \ \ \ \ \ \ \ \ file\_opened.close();}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{return}\ file;}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00032}00032\ \}}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00034}\mbox{\hyperlink{class_file_a1ff47bf5368d53db9c979ac95ab91c8b}{00034}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_file_a1ff47bf5368d53db9c979ac95ab91c8b}{File::WriteToFile}}(\textcolor{keyword}{const}\ std::string\_view\&\ path,\ \textcolor{keyword}{const}\ std::vector<std::string>\&\ lines)}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00035}00035\ \{}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00036}00036\ \ \ \ \ std::ofstream\ file\_to\_write(path.data());}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\_to\_write.is\_open())}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00038}00038\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ line\ :\ lines)}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ file\_to\_write\ <<\ line\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00042}00042\ \ \ \ \ \ \ \ \ file\_to\_write.flush();}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00043}00043\ \ \ \ \ \ \ \ \ file\_to\_write.close();}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00045}00045\ \}}
+\DoxyCodeLine{\Hypertarget{_file_8hpp_source_l00046}00046\ }
+
+\end{DoxyCode}
