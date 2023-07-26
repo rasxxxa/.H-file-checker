@@ -15,7 +15,7 @@ void Analyzer::Analize()
 
     m_mapped_parsers.clear();
     m_files_to_check.clear();
-    m_allFiles.clear();
+    m_allFilesCPP.clear();
     m_usage_per_file_variables.clear();
     m_occurence_per_file_variables.clear();
     m_usage_per_file_methods.clear();
@@ -43,26 +43,39 @@ void Analyzer::Analize()
         auto linesCpp = File::ReadFile(file.cpp_File);
         auto extracted = m_hParser.ExtractFromFile(linesH);
         linesCpp = m_cppParser.RefineFile(linesCpp);
-        
-        m_allFiles[file.h_File] = linesCpp;
+        linesH = m_cppParser.RefineFile(linesH);
+        m_allFilesCPP[file.h_File] = linesCpp;
+        m_allFilesH[file.h_File] = linesH;
         m_mapped_parsers[file.h_File] = extracted;
     }
 
     for (const auto& check_all_parsers : m_mapped_parsers)
     {
-        for (const auto& parser : check_all_parsers.second)
+        if (check_all_parsers.second.size())
         {
-            auto occurrenceVarsReadWrite = CheckVariablesForUsage(parser.unique_variables, m_allFiles[check_all_parsers.first]);
-            for (const auto& variable : occurrenceVarsReadWrite)
-                m_usage_per_file_variables[check_all_parsers.first][parser.class_name][variable.first] = variable.second;
+            for (const auto& parser : check_all_parsers.second)
+            {
+                auto occurrenceVarsReadWrite = CheckVariablesForUsage(parser.unique_variables, m_allFilesCPP[check_all_parsers.first]);
+                for (const auto& variable : occurrenceVarsReadWrite)
+                    m_usage_per_file_variables[check_all_parsers.first][parser.class_name][variable.first] = variable.second;
 
-            auto occurrence = GetOccurenceOfVariables(parser, m_allFiles[check_all_parsers.first]);
-            for (const auto& variable : occurrence)
-                m_occurence_per_file_variables[check_all_parsers.first][parser.class_name][variable.first] = variable.second;
+                auto occurrence = GetOccurenceOfVariables(parser, m_allFilesCPP[check_all_parsers.first]);
+                for (const auto& variable : occurrence)
+                    m_occurence_per_file_variables[check_all_parsers.first][parser.class_name][variable.first] = variable.second;
 
-            auto usageMethods = GetMethodOcurence(parser, m_allFiles, check_all_parsers.first);
-            for (const auto& method : usageMethods)
-                m_usage_per_file_methods[check_all_parsers.first][parser.class_name][method.first] = method.second;
+                if (!parser.global_pointer.empty())
+                {
+                    auto usageMethods = GetMethodOcurence(parser, m_allFilesCPP, check_all_parsers.first);
+                    for (const auto& method : usageMethods)
+                        m_usage_per_file_methods[check_all_parsers.first][parser.class_name][method.first] = method.second;
+                }
+                else
+                {
+                    auto usageMethods = GetMethodOcurenceWithoutGlobalPointer(parser, m_allFilesCPP, check_all_parsers.first);
+                    for (const auto& method : usageMethods)
+                        m_usage_per_file_methods[check_all_parsers.first][parser.class_name][method.first] = method.second;
+                }
+            }
         }
     }
 }
@@ -70,7 +83,7 @@ void Analyzer::Analize()
 void Analyzer::PrintResults(const std::string& path)
 {
     std::vector<std::string> lines_to_print;
-    for (const auto& file : m_allFiles)
+    for (const auto& file : m_allFilesCPP)
     {
         std::stringstream file_stream;
         if (m_usage_per_file_variables.contains(file.first) &&
@@ -218,6 +231,8 @@ std::unordered_map<std::string, int> Analyzer::GetMethodOcurence(const MethodsVa
 
     for (const auto& line : parser.public_methods)
     {
+        if (line == parser.class_name)
+            continue;
         ocurences[line] = 0;
         MethodPossible method_possible;
         method_possible.key_name = line;
@@ -306,4 +321,98 @@ std::unordered_map<std::string, int> Analyzer::GetMethodOcurence(const MethodsVa
     }
 
     return ocurences;
+}
+
+
+
+std::unordered_map<std::string, int> Analyzer::GetMethodOcurenceWithoutGlobalPointer(const MethodsVariableCounter& parser, const std::unordered_map<std::string, std::vector<std::string>>& files, const std::string& classForParser)
+{
+    std::unordered_map<std::string, int> method_occurence;
+    // here, one variable should be checked only in .cpp file for methods usage
+
+    for (const auto& hFileLines : m_allFilesH)
+    {
+        auto hFile = hFileLines.second;
+        if (!m_allFilesCPP.contains(hFileLines.first))
+            continue;
+        auto cppFile = m_allFilesCPP.at(hFileLines.first);
+
+        std::vector<VariableVisibilityRange> variables;
+
+        for (const auto& line : hFile)
+        {
+            if (line.contains(parser.class_name) && !line.contains('(') && !line.contains(')'))
+            {
+                int posLeft = 0;
+                int posRight = -1;
+                bool usable = true;
+                int pos = static_cast<int>(line.find(";") - 1);
+                do
+                {
+
+                    while (pos >= 0)
+                    {
+                        if (line[pos] == ']')
+                        {
+                            while (pos >= 0 && line[pos] != '[')
+                                pos--;
+                            pos--;
+                        }
+                        else if (line[pos] == '}')
+                        {
+                            while (pos >= 0 && line[pos] != '{')
+                                pos--;
+                            pos--;
+                        }
+                        else
+                        {
+                            posRight = pos;
+                            break;
+                        }
+                    }
+
+                    if (posRight == -1)
+                    {
+                        break;
+                    }
+
+                    auto IsAcceptableSign = [](char a)
+                    {
+                        return std::isalpha(a) || std::isdigit(a) || a == '_';
+                    };
+
+                    while (pos >= 0 && IsAcceptableSign(line[pos]))
+                        pos--;
+
+                    std::string substr = line.substr(pos + 1, posRight - pos);
+                    VariableVisibilityRange visibility;
+                    visibility.variable = substr;
+                    visibility.visibility = 0;
+                    variables.push_back(visibility);
+                    std::string restOfLine = line.substr(0, pos);
+
+                    if (restOfLine.back() - 1 == ',' || restOfLine.back() - 2 == ',' || restOfLine.back() == ',')
+                        pos = static_cast<int>(restOfLine.find_last_of(',') - 1);
+                    else
+                        usable = false;
+
+                } while (usable);
+            }
+        }
+
+        for (const auto& line : cppFile)
+        {
+            for (const auto& method : parser.public_methods)
+            {
+                for (const auto& variable : variables)
+                {
+                    if (line.contains(variable.variable) && line.contains(method) && method != parser.class_name)
+                        method_occurence[method]++;
+                }
+            }
+        }
+
+    }
+
+    return method_occurence;
 }

@@ -16,6 +16,11 @@ export import <sstream>;
 
 export
 {
+    struct VariableVisibilityRange
+    {
+        std::string variable;
+        size_t visibility;
+    };
     struct VariableUsage
     {
         std::string variable;

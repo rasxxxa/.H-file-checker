@@ -24,7 +24,7 @@ void MethodExtracter::Extract(std::vector<std::string>& lines, MethodsVariableCo
             {
                 isStatic = true;
             }
-            auto posOfParentesis = lines[pos].find("(") - 1;
+            long posOfParentesis = lines[pos].find("(") - 1;
             while (posOfParentesis >= 0 && std::isspace(lines[pos][posOfParentesis])) posOfParentesis--;
             if (posOfParentesis >= 0 && lines[pos][posOfParentesis] == '>')
             {
