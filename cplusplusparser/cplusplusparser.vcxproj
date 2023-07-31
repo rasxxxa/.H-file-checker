@@ -149,6 +149,7 @@
     <ClCompile Include="ClassRemover.cpp" />
     <ClCompile Include="CommentRemover.cpp" />
     <ClCompile Include="CPPFileParser.cpp" />
+    <ClCompile Include="DefineRemover.cpp" />
     <ClCompile Include="EmptyLinesRemover.cpp" />
     <ClCompile Include="EnumRemover.cpp" />
     <ClCompile Include="HFileParser.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="ClassRemover.h" />
     <ClInclude Include="CommentRemover.h" />
     <ClInclude Include="CPPFileParser.h" />
+    <ClInclude Include="DefineRemover.h" />
     <ClInclude Include="EmptyLinesRemover.h" />
     <ClInclude Include="EnumRemover.h" />
     <ClInclude Include="File.hpp" />

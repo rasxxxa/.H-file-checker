@@ -1,9 +1,12 @@
 #include "CPPFileParser.h"
 
+#include "DefineRemover.h"
+
 CPPFileParser::CPPFileParser()
 {
     // Order does not matter
     __super::RegisterParser(std::make_shared<CommentRemover>());
+    __super::RegisterParser(std::make_shared<DefineRemover>());
     __super::RegisterParser(std::make_shared<NamespaceRemover>());
     __super::RegisterParser(std::make_shared<EmptyLinesRemover>());
     __super::RegisterParser(std::make_shared<StructRemover>());

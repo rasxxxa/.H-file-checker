@@ -1,9 +1,11 @@
 #include "HFileParser.h"
+#include "DefineRemover.h"
 
 HFileParser::HFileParser()
 {
     // Order does not matter
     __super::RegisterParser(std::make_shared<CommentRemover>());
+    __super::RegisterParser(std::make_shared<DefineRemover>());
     __super::RegisterParser(std::make_shared<NamespaceRemover>());
     __super::RegisterParser(std::make_shared<EnumRemover>());
     __super::RegisterParser(std::make_shared<StructRemover>());

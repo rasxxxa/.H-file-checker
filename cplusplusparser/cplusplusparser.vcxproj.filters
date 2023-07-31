@@ -66,6 +66,9 @@
     <ClCompile Include="ClassNameExtracter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DefineRemover.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Analyzer.h">
@@ -114,6 +117,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ClassNameExtracter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineRemover.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
