@@ -69,7 +69,7 @@ void MethodExtracter::Extract(std::vector<std::string>& lines, MethodsVariableCo
                     extracter.static_methods.insert(Method);
             }
 
-            while (pos < lines.size() && (!lines[pos].contains(");")))
+            while (pos < lines.size() && (!lines[pos].contains(";")))
                 pos++;
         }
         pos++;
