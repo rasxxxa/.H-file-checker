@@ -41,6 +41,7 @@ void Analyzer::Analize()
     {
         auto linesH = File::ReadFile(file.h_File);
         auto linesCpp = File::ReadFile(file.cpp_File);
+
         auto extracted = m_hParser.ExtractFromFile(linesH);
         linesCpp = m_cppParser.RefineFile(linesCpp);
         linesH = m_cppParser.RefineFile(linesH);
@@ -258,9 +259,19 @@ std::unordered_map<std::string, int> Analyzer::GetMethodOcurence(const MethodsVa
 
         if (!method_possible.possible_names.empty())
             all_combination.push_back(method_possible);
-
-
     }
+
+    for (const auto& line : parser.private_methods)
+    {
+        MethodPossible mp;
+        if (line == parser.class_name)
+            continue;
+
+        mp.key_name = line;
+        mp.possible_names.push_back(line);
+        only_main_cpp.push_back(mp);
+    }
+
 
     for (const auto& line : parser.static_methods)
     {
@@ -286,6 +297,8 @@ std::unordered_map<std::string, int> Analyzer::GetMethodOcurence(const MethodsVa
         if (!method_possible.possible_names.empty())
             all_combination.push_back(method_possible);
     }
+
+
 
     for (const auto& possible_combination : all_combination)
     {
