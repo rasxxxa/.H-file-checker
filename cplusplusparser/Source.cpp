@@ -4,7 +4,7 @@
 
 int main(int argc, const char** argv) 
 {
-    std::string path = "D:\\magicnhd\\Reel5CO\\";
+    std::string path = ".";
     if (argc > 1)
         path = argv[1];
 
