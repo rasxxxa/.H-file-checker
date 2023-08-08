@@ -84,29 +84,31 @@ void Analyzer::Analize()
 void Analyzer::PrintResults(const std::string& path)
 {
     std::vector<std::string> lines_to_print;
-    for (const auto& file : m_allFilesCPP)
+    std::vector<std::string> unique_classes;
+    for (const auto& _class : m_mapped_parsers)
+        unique_classes.push_back(_class.first);
+    for (const auto& file : unique_classes)
     {
         std::stringstream file_stream;
-        if (m_usage_per_file_variables.contains(file.first) &&
-            m_occurence_per_file_variables.contains(file.first) &&
-            m_usage_per_file_methods.contains(file.first))
+        file_stream << "File: " << file << std::endl;
+
+        if (m_usage_per_file_variables.contains(file))
         {
-            file_stream << "File: " << file.first << std::endl;
-            for (const auto& _class : m_usage_per_file_variables.at(file.first))
+            for (const auto& _class : m_usage_per_file_variables.at(file))
             {
                 std::vector<VariableUsage> variables_usages;
                 for (const auto& variable : _class.second)
                 {
                     VariableUsage usage{};
-                    usage.usage = m_occurence_per_file_variables[file.first][_class.first][variable.first];
+                    usage.usage = m_occurence_per_file_variables[file][_class.first][variable.first];
                     usage.variable = variable.first;
                     variables_usages.push_back(usage);
                 }
 
                 std::ranges::sort(variables_usages, [](const auto& usage1, const auto& usage2) {
-                    
+
                     return usage1.usage < usage2.usage;
-                    
+
                     });
 
                 file_stream << "\tClass: " << std::endl;
@@ -115,15 +117,21 @@ void Analyzer::PrintResults(const std::string& path)
                 for (const auto& variable : variables_usages)
                 {
                     file_stream << "\t\tVariable: " << variable.variable << " occurrence: " << variable.usage << std::endl;
-                    file_stream << "\t\tRead times: " << m_usage_per_file_variables[file.first][_class.first][variable.variable].read_times << std::endl;
-                    file_stream << "\t\tWrite times: " << m_usage_per_file_variables[file.first][_class.first][variable.variable].write_times << std::endl;
-                    file_stream << "\t\tCalling method times: " << m_usage_per_file_variables[file.first][_class.first][variable.variable].method_times << std::endl;
+                    file_stream << "\t\tRead times: " << m_usage_per_file_variables[file][_class.first][variable.variable].read_times << std::endl;
+                    file_stream << "\t\tWrite times: " << m_usage_per_file_variables[file][_class.first][variable.variable].write_times << std::endl;
+                    file_stream << "\t\tCalling method times: " << m_usage_per_file_variables[file][_class.first][variable.variable].method_times << std::endl;
                 }
                 file_stream << std::endl << std::endl;
+            }
+        }
 
+        if (m_usage_per_file_methods.contains(file))
+        {
+            for (const auto& _class : m_usage_per_file_methods[file])
+            {
                 std::vector<VariableUsage> method_usage;
 
-                for (const auto& method : m_usage_per_file_methods.at(file.first).at(_class.first))
+                for (const auto& method : m_usage_per_file_methods.at(file).at(_class.first))
                 {
                     VariableUsage usage{};
                     usage.usage = method.second;
@@ -145,8 +153,9 @@ void Analyzer::PrintResults(const std::string& path)
                 }
                 file_stream << std::endl << std::endl;
             }
-            lines_to_print.push_back(file_stream.str());
+        
         }
+        lines_to_print.push_back(file_stream.str());
     }
 
     File::WriteToFile(path, lines_to_print);
